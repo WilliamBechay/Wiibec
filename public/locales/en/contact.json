@@ -9,6 +9,8 @@
   "namePlaceholder": "Your full name",
   "emailLabel": "Email",
   "emailPlaceholder": "your.email@example.com",
+  "subjectLabel": "Subject",
+  "subjectPlaceholder": "Subject of your message",
   "messageLabel": "Message",
   "messagePlaceholder": "Your message...",
   "sendButton": "Send Message",
