@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Heart, Users } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';

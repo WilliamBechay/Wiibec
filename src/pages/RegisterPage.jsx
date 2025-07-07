@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', password: '', confirmPassword: '' });
@@ -19,6 +19,7 @@ const RegisterPage = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation('auth');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +28,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      toast({ title: "Erreur", description: "Les mots de passe ne correspondent pas.", variant: "destructive" });
+      toast({ title: t('registerPage.errorToastTitle'), description: t('registerPage.passwordMismatch'), variant: "destructive" });
       return;
     }
     setLoading(true);
@@ -39,10 +40,10 @@ const RegisterPage = () => {
     });
 
     if (success) {
-      toast({ title: "Inscription réussie !", description: "Bienvenue ! Veuillez confirmer votre email pour continuer." });
+      toast({ title: t('registerPage.successToastTitle'), description: t('registerPage.successToastDescription') });
       navigate('/login');
     } else {
-      toast({ title: "Erreur d'inscription", description: error, variant: "destructive" });
+      toast({ title: t('registerPage.errorToastTitle'), description: error, variant: "destructive" });
     }
     setLoading(false);
   };
@@ -55,35 +56,35 @@ const RegisterPage = () => {
       className="flex justify-center items-center py-12 px-4"
     >
       <Helmet>
-        <title>Inscription - WIIBEC</title>
-        <meta name="description" content="Rejoignez la communauté WIIBEC." />
+        <title>{t('registerPage.helmetTitle')}</title>
+        <meta name="description" content={t('registerPage.helmetDescription')} />
       </Helmet>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold text-primary">Créer un compte</CardTitle>
-          <CardDescription>Rejoignez notre mission pour l'éducation financière</CardDescription>
+          <CardTitle className="text-3xl font-bold text-primary">{t('registerPage.title')}</CardTitle>
+          <CardDescription>{t('registerPage.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">Prénom</Label>
+                <Label htmlFor="firstName">{t('registerPage.firstNameLabel')}</Label>
                 <Input id="firstName" name="firstName" required value={formData.firstName} onChange={handleChange} placeholder="Jean" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Nom</Label>
+                <Label htmlFor="lastName">{t('registerPage.lastNameLabel')}</Label>
                 <Input id="lastName" name="lastName" required value={formData.lastName} onChange={handleChange} placeholder="Dupont" />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('registerPage.emailLabel')}</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} className="pl-10" placeholder="votre@email.com" />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Mot de passe</Label>
+              <Label htmlFor="password">{t('registerPage.passwordLabel')}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input id="password" name="password" type={showPassword ? 'text' : 'password'} required value={formData.password} onChange={handleChange} className="pl-10 pr-10" placeholder="••••••••" />
@@ -93,21 +94,21 @@ const RegisterPage = () => {
               </div>
             </div>
              <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirmer le mot de passe</Label>
+              <Label htmlFor="confirmPassword">{t('registerPage.confirmPasswordLabel')}</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input id="confirmPassword" name="confirmPassword" type={showPassword ? 'text' : 'password'} required value={formData.confirmPassword} onChange={handleChange} className="pl-10 pr-10" placeholder="••••••••" />
               </div>
             </div>
             <Button type="submit" className="w-full bg-primary text-primary-foreground font-bold hover:bg-primary/90" disabled={loading}>
-              {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> Inscription...</> : 'S\'inscrire'}
+              {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> {t('registerPage.registeringButton')}</> : t('registerPage.registerButton')}
             </Button>
           </form>
           <div className="mt-6 text-center text-sm">
             <p className="text-muted-foreground">
-              Déjà un compte ?{' '}
+              {t('registerPage.haveAccount')}{' '}
               <Link to="/login" className="font-medium text-primary hover:text-primary/80">
-                Se connecter
+                {t('registerPage.login')}
               </Link>
             </p>
           </div>

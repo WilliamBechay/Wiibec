@@ -23,8 +23,8 @@ const AdminInvoiceIssuesPage = () => {
         .from('invoice_issues')
         .select(`
           *,
-          invoice:invoices(invoice_number),
-          user:profiles(first_name, last_name, email)
+          invoices(invoice_number),
+          profiles(first_name, last_name, email)
         `)
         .order('created_at', { ascending: false });
 
@@ -140,10 +140,10 @@ const AdminInvoiceIssuesPage = () => {
                 <TableBody>
                   {issues.map((issue) => (
                     <TableRow key={issue.id}>
-                      <TableCell>{issue.invoice?.invoice_number || 'N/A'}</TableCell>
+                      <TableCell>{issue.invoices?.invoice_number || 'N/A'}</TableCell>
                       <TableCell>
-                        <div className="font-medium">{`${issue.user?.first_name || ''} ${issue.user?.last_name || ''}`}</div>
-                        <div className="text-sm text-muted-foreground">{issue.user?.email}</div>
+                        <div className="font-medium">{`${issue.profiles?.first_name || ''} ${issue.profiles?.last_name || ''}`}</div>
+                        <div className="text-sm text-muted-foreground">{issue.profiles?.email}</div>
                       </TableCell>
                       <TableCell className="max-w-sm truncate">{issue.issue_description}</TableCell>
                       <TableCell>{formatDate(issue.created_at)}</TableCell>

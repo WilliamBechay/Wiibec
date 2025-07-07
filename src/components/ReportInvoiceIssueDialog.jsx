@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Dialog,
@@ -19,7 +18,7 @@ const ReportInvoiceIssueDialog = ({ open, onOpenChange, invoice }) => {
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,10 +33,12 @@ const ReportInvoiceIssueDialog = ({ open, onOpenChange, invoice }) => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.from('invoice_issues').insert({
+      const { error } = await supabase.from('contact_messages').insert({
         invoice_id: invoice.id,
-        user_id: user.id,
-        issue_description: description,
+        name: `${profile.first_name} ${profile.last_name}`,
+        email: user.email,
+        subject: `Problème avec la facture #${invoice.invoice_number}`,
+        message: description,
       });
 
       if (error) throw error;
@@ -66,7 +67,7 @@ const ReportInvoiceIssueDialog = ({ open, onOpenChange, invoice }) => {
           <DialogHeader>
             <DialogTitle>Signaler un problème</DialogTitle>
             <DialogDescription>
-              Décrivez le problème que vous rencontrez avec la facture #{invoice?.invoice_number}.
+              Décrivez le problème que vous rencontrez avec la facture #{invoice?.invoice_number}. Votre message sera envoyé à notre équipe de support.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

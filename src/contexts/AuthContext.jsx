@@ -1,5 +1,4 @@
-
-    import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
     import { supabase } from '@/lib/customSupabaseClient';
     import { useToast } from '@/components/ui/use-toast';
 
@@ -121,8 +120,6 @@
         
         if (error) {
           console.error('Error signing out:', error.message);
-          // This specific error means the user is already gone from the DB.
-          // We can safely ignore it and proceed with local state clearing.
           if (error.message !== 'User from sub claim in JWT does not exist') {
             toast({
               title: "Erreur de déconnexion",
@@ -131,6 +128,9 @@
             });
           }
         }
+        
+        // Force clear local storage tokens for a clean slate
+        await supabase.auth.setSession({ access_token: null, refresh_token: null });
         
         setUser(null);
         setProfile(null);
@@ -195,4 +195,3 @@
         </AuthContext.Provider>
       );
     };
-  

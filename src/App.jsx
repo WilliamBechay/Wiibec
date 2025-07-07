@@ -4,8 +4,6 @@ import React from 'react';
 
     import Layout from '@/components/Layout';
     import HomePage from '@/pages/HomePage';
-    import AboutPage from '@/pages/AboutPage';
-    import PartnersPage from '@/pages/PartnersPage';
     import DonatePage from '@/pages/DonatePage';
     import ContactPage from '@/pages/ContactPage';
     import LoginPage from '@/pages/LoginPage';
@@ -27,7 +25,6 @@ import React from 'react';
     import AdminSettingsPage from '@/pages/admin/AdminSettingsPage';
     import AdminInvoicesPage from '@/pages/admin/AdminInvoicesPage';
     import AdminOrganizationSettingsPage from '@/pages/admin/AdminOrganizationSettingsPage';
-    import AdminInvoiceIssuesPage from '@/pages/admin/AdminInvoiceIssuesPage';
     import AdminMessagesPage from '@/pages/admin/AdminMessagesPage';
     import AdminDonationGoalPage from '@/pages/admin/AdminDonationGoalPage';
 
@@ -39,8 +36,6 @@ import React from 'react';
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageGuard pageKey="home"><HomePage /></PageGuard>} />
-              <Route path="/about" element={<PageGuard pageKey="about"><AboutPage /></PageGuard>} />
-              <Route path="/partners" element={<PageGuard pageKey="partners"><PartnersPage /></PageGuard>} />
               <Route path="/donate" element={<PageGuard pageKey="donate"><DonatePage /></PageGuard>} />
               <Route path="/contact" element={<PageGuard pageKey="contact"><ContactPage /></PageGuard>} />
               <Route path="/login" element={<PageGuard pageKey="login"><LoginPage /></PageGuard>} />
@@ -81,7 +76,6 @@ import React from 'react';
                 <Route path="logs" element={<AdminLogsPage />} />
                 <Route path="sitemap" element={<AdminSitemapPage />} />
                 <Route path="invoices" element={<PageGuard pageKey="invoices_admin"><AdminInvoicesPage /></PageGuard>} />
-                <Route path="invoice-issues" element={<PageGuard pageKey="invoice_issues_admin"><AdminInvoiceIssuesPage /></PageGuard>} />
                 <Route path="donation-goal" element={<AdminDonationGoalPage />} />
                 <Route path="organization" element={<PageGuard pageKey="org_settings_admin"><AdminOrganizationSettingsPage /></PageGuard>} />
                 <Route path="settings" element={<AdminSettingsPage />} />

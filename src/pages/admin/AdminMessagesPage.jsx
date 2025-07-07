@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, RefreshCw, Mail, MessageSquare } from 'lucide-react';
+import { Loader2, RefreshCw, Mail, MessageSquare, FileText } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -33,7 +33,7 @@ const AdminMessagesPage = () => {
     try {
       const { data, error } = await supabase
         .from('contact_messages')
-        .select('*')
+        .select('*, invoices(invoice_number)')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -111,8 +111,8 @@ const AdminMessagesPage = () => {
                       <TableRow>
                       <TableHead>{t('messages.table.status')}</TableHead>
                       <TableHead>{t('messages.table.from')}</TableHead>
-                      <TableHead>{t('messages.table.email')}</TableHead>
-                      <TableHead>{t('messages.table.message')}</TableHead>
+                      <TableHead>{t('messages.table.subject')}</TableHead>
+                      <TableHead>{t('messages.table.relatedInvoice', 'Facture liée')}</TableHead>
                       <TableHead>{t('messages.table.receivedOn')}</TableHead>
                       <TableHead className="text-right">{t('messages.table.action')}</TableHead>
                       </TableRow>
@@ -121,9 +121,21 @@ const AdminMessagesPage = () => {
                       {messages.length > 0 ? messages.map((message) => (
                       <TableRow key={message.id} className={message.status === 'new' ? 'font-bold' : ''}>
                           <TableCell>{getStatusBadge(message.status)}</TableCell>
-                          <TableCell>{message.name}</TableCell>
-                          <TableCell>{message.email}</TableCell>
-                          <TableCell className="max-w-xs truncate">{message.message}</TableCell>
+                          <TableCell>
+                            <div className="font-medium">{message.name}</div>
+                            <div className="text-sm text-muted-foreground">{message.email}</div>
+                          </TableCell>
+                          <TableCell className="max-w-xs truncate">{message.subject}</TableCell>
+                          <TableCell>
+                            {message.invoices ? (
+                               <Badge variant="outline">
+                                 <FileText className="mr-2 h-3 w-3" />
+                                 {message.invoices.invoice_number}
+                               </Badge>
+                            ) : (
+                              <span className="text-muted-foreground">-</span>
+                            )}
+                          </TableCell>
                           <TableCell>{formatDate(message.created_at)}</TableCell>
                           <TableCell className="text-right">
                             <Button variant="outline" size="sm" onClick={() => handleViewMessage(message)}>
@@ -150,20 +162,28 @@ const AdminMessagesPage = () => {
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent className="sm:max-w-[525px]">
             <DialogHeader>
-              <DialogTitle className="flex items-center"><MessageSquare className="mr-2 h-5 w-5" /> {t('messages.dialog.title', { name: selectedMessage.name })}</DialogTitle>
+              <DialogTitle className="flex items-center"><MessageSquare className="mr-2 h-5 w-5" /> {selectedMessage.subject || t('messages.dialog.title', { name: selectedMessage.name })}</DialogTitle>
               <DialogDescription>
                 {t('messages.dialog.receivedOn', { date: formatDate(selectedMessage.created_at) })}
+                {selectedMessage.invoices && (
+                  <div className="mt-2">
+                    <Badge variant="secondary">
+                       <FileText className="mr-2 h-4 w-4" />
+                      {t('messages.dialog.relatedInvoice', 'Facture liée:')} {selectedMessage.invoices.invoice_number}
+                    </Badge>
+                  </div>
+                )}
               </DialogDescription>
             </DialogHeader>
             <div className="py-4 space-y-4">
               <p className="text-sm text-muted-foreground whitespace-pre-wrap">{selectedMessage.message}</p>
               <div className="border-t pt-4">
-                <p className="text-sm font-medium">{t('messages.dialog.contact')}</p>
-                <p className="text-sm text-muted-foreground">{selectedMessage.email}</p>
+                <p className="text-sm font-medium">{t('messages.dialog.contactInfo', 'Contact Info')}</p>
+                <p className="text-sm text-muted-foreground">{selectedMessage.name} - {selectedMessage.email}</p>
               </div>
             </div>
             <DialogFooter>
-              <a href={`mailto:${selectedMessage.email}?subject=Re: Votre message à WIIBEC`} className="w-full">
+              <a href={`mailto:${selectedMessage.email}?subject=Re: ${selectedMessage.subject}`} className="w-full">
                 <Button className="w-full">
                   <Mail className="mr-2 h-4 w-4" /> {t('messages.dialog.replyButton')}
                 </Button>

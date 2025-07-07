@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { FileText, Download, Loader2, AlertCircle, FileX2 } from 'lucide-react';

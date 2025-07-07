@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 const ContactPage = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const { t } = useTranslation('contact');
 
   const handleChange = (e) => {
@@ -32,6 +32,7 @@ const ContactPage = () => {
         .insert({
           name: formData.name,
           email: formData.email,
+          subject: formData.subject,
           message: formData.message,
         });
 
@@ -41,7 +42,7 @@ const ContactPage = () => {
         title: t('successToastTitle'),
         description: t('successToastDescription'),
       });
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '' });
       
     } catch (error) {
       toast({
@@ -87,6 +88,10 @@ const ContactPage = () => {
               <div className="space-y-2">
                 <Label htmlFor="email">{t('emailLabel')}</Label>
                 <Input type="email" id="email" required placeholder={t('emailPlaceholder')} value={formData.email} onChange={handleChange} />
+              </div>
+               <div className="space-y-2">
+                <Label htmlFor="subject">{t('subjectLabel', 'Sujet')}</Label>
+                <Input type="text" id="subject" required placeholder={t('subjectPlaceholder', 'Sujet de votre message')} value={formData.subject} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">{t('messageLabel')}</Label>
