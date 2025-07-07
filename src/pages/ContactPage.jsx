@@ -90,8 +90,8 @@ const ContactPage = () => {
                 <Input type="email" id="email" required placeholder={t('emailPlaceholder')} value={formData.email} onChange={handleChange} />
               </div>
                <div className="space-y-2">
-                <Label htmlFor="subject">{t('subjectLabel', 'Sujet')}</Label>
-                <Input type="text" id="subject" required placeholder={t('subjectPlaceholder', 'Sujet de votre message')} value={formData.subject} onChange={handleChange} />
+                <Label htmlFor="subject">{t('subjectLabel')}</Label>
+                <Input type="text" id="subject" required placeholder={t('subjectPlaceholder')} value={formData.subject} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">{t('messageLabel')}</Label>
