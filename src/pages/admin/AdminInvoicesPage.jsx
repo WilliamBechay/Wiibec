@@ -11,6 +11,7 @@ import { Download, Loader2, Search } from 'lucide-react';
 import useDebounce from '@/hooks/useDebounce';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import InvoiceDocument from '@/components/InvoiceDocument';
+import { useTranslation } from 'react-i18next';
 
 const AdminInvoicesPage = () => {
   const [invoices, setInvoices] = useState([]);
@@ -20,6 +21,7 @@ const AdminInvoicesPage = () => {
   const [count, setCount] = useState(0);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const { toast } = useToast();
+  const { t, i18n } = useTranslation('admin');
   const ITEMS_PER_PAGE = 10;
 
   useEffect(() => {
@@ -42,8 +44,8 @@ const AdminInvoicesPage = () => {
 
       if (error) {
         toast({
-          title: 'Erreur',
-          description: 'Impossible de charger les factures. ' + error.message,
+          title: t('common:errors.error'),
+          description: t('invoices.loadError', { error: error.message }),
           variant: 'destructive',
         });
         console.error(error);
@@ -55,15 +57,15 @@ const AdminInvoicesPage = () => {
     };
 
     fetchInvoices();
-  }, [toast, debouncedSearchTerm, page]);
+  }, [toast, debouncedSearchTerm, page, t]);
 
-  const formatCurrency = (amount) => new Intl.NumberFormat('fr-CA', { style: 'currency', currency: 'CAD' }).format(amount);
-  const formatDate = (dateString) => new Date(dateString).toLocaleDateString('fr-FR');
+  const formatCurrency = (amount) => new Intl.NumberFormat(i18n.language === 'fr' ? 'fr-CA' : 'en-US', { style: 'currency', currency: 'CAD' }).format(amount);
+  const formatDate = (dateString) => new Date(dateString).toLocaleDateString(i18n.language === 'fr' ? 'fr-FR' : 'en-US');
 
   return (
     <>
       <Helmet>
-        <title>Gestion des Factures - Administration</title>
+        <title>{t('invoices.title')}</title>
         <meta name="description" content="Consultez et gérez toutes les factures de dons." />
       </Helmet>
       <motion.div
@@ -72,19 +74,19 @@ const AdminInvoicesPage = () => {
         transition={{ duration: 0.5 }}
         className="space-y-6"
       >
-        <h1 className="text-3xl font-bold tracking-tight">Gestion des Factures</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('invoices.heading')}</h1>
         
         <Card>
           <CardHeader>
-            <CardTitle>Factures des Dons</CardTitle>
+            <CardTitle>{t('invoices.cardTitle')}</CardTitle>
             <CardDescription>
-              Recherchez et consultez les reçus fiscaux générés pour chaque don.
+              {t('invoices.cardDesc')}
             </CardDescription>
             <div className="relative mt-4">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
-                placeholder="Rechercher par N° de facture ou email..."
+                placeholder={t('invoices.searchPlaceholder')}
                 className="pl-8"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -101,11 +103,11 @@ const AdminInvoicesPage = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>N° Facture</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Donateur</TableHead>
-                      <TableHead>Montant</TableHead>
-                      <TableHead className="text-right">Action</TableHead>
+                      <TableHead>{t('invoices.table.invoiceNo')}</TableHead>
+                      <TableHead>{t('invoices.table.date')}</TableHead>
+                      <TableHead>{t('invoices.table.donor')}</TableHead>
+                      <TableHead>{t('invoices.table.amount')}</TableHead>
+                      <TableHead className="text-right">{t('invoices.table.action')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -139,7 +141,7 @@ const AdminInvoicesPage = () => {
                       </TableRow>
                     )) : (
                       <TableRow>
-                        <TableCell colSpan="5" className="text-center h-24">Aucune facture trouvée.</TableCell>
+                        <TableCell colSpan="5" className="text-center h-24">{t('invoices.noInvoices')}</TableCell>
                       </TableRow>
                     )}
                   </TableBody>

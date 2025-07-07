@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Send, Loader2, Info, RefreshCw } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { useTranslation } from 'react-i18next';
 
 const quillModules = {
   toolbar: [
@@ -32,6 +33,7 @@ const AdminMailingPage = () => {
   const [isSending, setIsSending] = useState(false);
   const [campaigns, setCampaigns] = useState([]);
   const [loadingCampaigns, setLoadingCampaigns] = useState(true);
+  const { t } = useTranslation('admin');
 
   const fetchCampaigns = useCallback(async () => {
     setLoadingCampaigns(true);
@@ -44,11 +46,11 @@ const AdminMailingPage = () => {
       if (error) throw error;
       setCampaigns(data);
     } catch (error) {
-      toast({ title: 'Erreur', description: 'Impossible de charger les campagnes.', variant: 'destructive' });
+      toast({ title: t('common:errors.error'), description: t('mailing.toast.loadError'), variant: 'destructive' });
     } finally {
       setLoadingCampaigns(false);
     }
-  }, [toast]);
+  }, [toast, t]);
 
   useEffect(() => {
     fetchCampaigns();
@@ -56,7 +58,7 @@ const AdminMailingPage = () => {
 
   const handleSendCampaign = async () => {
     if (!subject || !body || !recipientGroup) {
-      toast({ title: 'Erreur', description: 'Veuillez remplir tous les champs.', variant: 'destructive' });
+      toast({ title: t('common:errors.error'), description: t('mailing.toast.validationError'), variant: 'destructive' });
       return;
     }
     setIsSending(true);
@@ -88,12 +90,12 @@ const AdminMailingPage = () => {
 
       if (functionError) throw functionError;
       
-      toast({ title: 'Succès !', description: data.message || 'Campagne envoyée avec succès.' });
+      toast({ title: t('auth:resetPasswordPage.successToastTitle'), description: data.message || t('mailing.toast.sendSuccess') });
       setSubject('');
       setBody('');
       
     } catch (error) {
-      toast({ title: 'Erreur', description: `L'envoi a échoué: ${error.message}`, variant: 'destructive' });
+      toast({ title: t('common:errors.error'), description: t('mailing.toast.sendError', { error: error.message }), variant: 'destructive' });
       if (campaignId) {
         await supabase.from('campaigns').update({ status: 'failed' }).eq('id', campaignId);
       }
@@ -106,12 +108,13 @@ const AdminMailingPage = () => {
   const formatDate = (date) => date ? new Date(date).toLocaleString('fr-CA') : 'N/A';
   
   const getStatusBadge = (status) => {
+    const statusText = t(`mailing.campaigns.statusLabels.${status}`, status);
     switch (status) {
-      case 'sent': return <span className="px-2 py-1 text-xs font-medium text-green-300 bg-green-900/50 rounded-full">Envoyé</span>;
-      case 'draft': return <span className="px-2 py-1 text-xs font-medium text-gray-300 bg-gray-700/50 rounded-full">Brouillon</span>;
-      case 'sending': return <span className="px-2 py-1 text-xs font-medium text-blue-300 bg-blue-900/50 rounded-full">Envoi...</span>;
-      case 'failed': return <span className="px-2 py-1 text-xs font-medium text-red-300 bg-red-900/50 rounded-full">Échoué</span>;
-      default: return <span className="px-2 py-1 text-xs font-medium text-gray-300 bg-gray-700/50 rounded-full">{status}</span>;
+      case 'sent': return <span className="px-2 py-1 text-xs font-medium text-green-300 bg-green-900/50 rounded-full">{statusText}</span>;
+      case 'draft': return <span className="px-2 py-1 text-xs font-medium text-gray-300 bg-gray-700/50 rounded-full">{statusText}</span>;
+      case 'sending': return <span className="px-2 py-1 text-xs font-medium text-blue-300 bg-blue-900/50 rounded-full">{statusText}</span>;
+      case 'failed': return <span className="px-2 py-1 text-xs font-medium text-red-300 bg-red-900/50 rounded-full">{statusText}</span>;
+      default: return <span className="px-2 py-1 text-xs font-medium text-gray-300 bg-gray-700/50 rounded-full">{statusText}</span>;
     }
   };
 
@@ -119,7 +122,7 @@ const AdminMailingPage = () => {
   return (
     <>
       <Helmet>
-        <title>Mailing - Administration</title>
+        <title>{t('mailing.title')}</title>
       </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -128,29 +131,32 @@ const AdminMailingPage = () => {
         className="space-y-6"
       >
         <div className="flex items-center justify-between">
-           <h1 className="text-3xl font-bold tracking-tight">Mailing</h1>
+           <h1 className="text-3xl font-bold tracking-tight">{t('mailing.heading')}</h1>
            <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="outline" size="sm"><Info className="mr-2 h-4 w-4"/>Configuration requise</Button>
+                <Button variant="outline" size="sm"><Info className="mr-2 h-4 w-4"/>{t('mailing.configRequired')}</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Configuration du service d'envoi d'e-mails</AlertDialogTitle>
+                  <AlertDialogTitle>{t('mailing.configDialog.title')}</AlertDialogTitle>
                   <AlertDialogDescription asChild>
                     <div className="space-y-4 text-sm text-muted-foreground mt-2">
-                    <p>Pour envoyer des e-mails, ce système utilise un service tiers (par exemple, Resend, SendGrid, Mailgun). Vous devez configurer une clé API pour que cela fonctionne.</p>
+                    <p>{t('mailing.configDialog.p1')}</p>
                     <ol className="list-decimal list-inside space-y-2">
-                        <li>Inscrivez-vous sur un service comme <a href="https://resend.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">Resend.com</a>.</li>
-                        <li>Générez une clé API.</li>
-                        <li>Contactez le support pour ajouter cette clé à vos secrets Supabase sous le nom `RESEND_API_KEY`.</li>
-                        <li>Configurez également `FROM_EMAIL` avec l'adresse e-mail d'expédition que vous avez validée.</li>
+                        <li>{t('mailing.configDialog.li1', {
+                          defaultValue: 'Inscrivez-vous sur un service comme <1>Resend.com</1>.',
+                          components: { 1: <a href="https://resend.com" target="_blank" rel="noopener noreferrer" className="text-primary underline" /> }
+                        })}</li>
+                        <li>{t('mailing.configDialog.li2')}</li>
+                        <li>{t('mailing.configDialog.li3')}</li>
+                        <li>{t('mailing.configDialog.li4')}</li>
                     </ol>
-                    <p className="font-bold text-foreground">Sans cette configuration, les e-mails ne seront pas réellement envoyés.</p>
+                    <p className="font-bold text-foreground">{t('mailing.configDialog.p2')}</p>
                     </div>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogAction>Compris</AlertDialogAction>
+                  <AlertDialogAction>{t('mailing.configDialog.close')}</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -158,44 +164,44 @@ const AdminMailingPage = () => {
 
         <Tabs defaultValue="compose">
           <TabsList>
-            <TabsTrigger value="compose">Composer</TabsTrigger>
-            <TabsTrigger value="campaigns">Campagnes</TabsTrigger>
+            <TabsTrigger value="compose">{t('mailing.tabs.compose')}</TabsTrigger>
+            <TabsTrigger value="campaigns">{t('mailing.tabs.campaigns')}</TabsTrigger>
           </TabsList>
           
           <TabsContent value="compose" className="mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Nouvelle campagne</CardTitle>
-                <CardDescription>Rédigez et envoyez un e-mail à un groupe d'utilisateurs.</CardDescription>
+                <CardTitle>{t('mailing.compose.title')}</CardTitle>
+                <CardDescription>{t('mailing.compose.description')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-2 md:col-span-2">
-                        <Label htmlFor="subject">Sujet</Label>
-                        <Input id="subject" placeholder="Le sujet de votre e-mail" value={subject} onChange={(e) => setSubject(e.target.value)} />
+                        <Label htmlFor="subject">{t('mailing.compose.subject')}</Label>
+                        <Input id="subject" placeholder={t('mailing.compose.subjectPlaceholder')} value={subject} onChange={(e) => setSubject(e.target.value)} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="recipientGroup">Destinataires</Label>
+                        <Label htmlFor="recipientGroup">{t('mailing.compose.recipients')}</Label>
                         <Select value={recipientGroup} onValueChange={setRecipientGroup}>
                         <SelectTrigger id="recipientGroup">
-                            <SelectValue placeholder="Sélectionnez un groupe" />
+                            <SelectValue placeholder={t('mailing.compose.recipientsPlaceholder')} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">Tous les utilisateurs</SelectItem>
-                            <SelectItem value="donors">Donateurs</SelectItem>
-                            <SelectItem value="admins">Administrateurs</SelectItem>
+                            <SelectItem value="all">{t('mailing.compose.groups.all')}</SelectItem>
+                            <SelectItem value="donors">{t('mailing.compose.groups.donors')}</SelectItem>
+                            <SelectItem value="admins">{t('mailing.compose.groups.admins')}</SelectItem>
                         </SelectContent>
                         </Select>
                     </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>Corps de l'e-mail</Label>
+                  <Label>{t('mailing.compose.body')}</Label>
                    <ReactQuill theme="snow" value={body} onChange={setBody} modules={quillModules} className="bg-card text-foreground"/>
                 </div>
                  <div className="flex justify-end">
                     <Button onClick={handleSendCampaign} disabled={isSending}>
                       {isSending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
-                      {isSending ? 'Envoi en cours...' : 'Envoyer la campagne'}
+                      {isSending ? t('mailing.compose.sendingButton') : t('mailing.compose.sendButton')}
                     </Button>
                 </div>
               </CardContent>
@@ -206,8 +212,8 @@ const AdminMailingPage = () => {
              <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                   <div>
-                    <CardTitle>Historique des campagnes</CardTitle>
-                    <CardDescription>Liste de toutes les campagnes envoyées ou en brouillon.</CardDescription>
+                    <CardTitle>{t('mailing.campaigns.title')}</CardTitle>
+                    <CardDescription>{t('mailing.campaigns.description')}</CardDescription>
                   </div>
                   <Button variant="outline" size="icon" onClick={fetchCampaigns} disabled={loadingCampaigns}>
                     <RefreshCw className={`h-4 w-4 ${loadingCampaigns ? 'animate-spin' : ''}`} />
@@ -223,24 +229,24 @@ const AdminMailingPage = () => {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                <TableHead>Sujet</TableHead>
-                                <TableHead>Destinataires</TableHead>
-                                <TableHead>Date d'envoi</TableHead>
-                                <TableHead className="text-right">Statut</TableHead>
+                                <TableHead>{t('mailing.campaigns.table.subject')}</TableHead>
+                                <TableHead>{t('mailing.campaigns.table.recipients')}</TableHead>
+                                <TableHead>{t('mailing.campaigns.table.sentDate')}</TableHead>
+                                <TableHead className="text-right">{t('mailing.campaigns.table.status')}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {campaigns.length > 0 ? campaigns.map((campaign) => (
                                 <TableRow key={campaign.id}>
                                     <TableCell className="font-medium max-w-xs truncate">{campaign.subject}</TableCell>
-                                    <TableCell>{campaign.recipient_group}</TableCell>
+                                    <TableCell>{t(`mailing.compose.groups.${campaign.recipient_group}`)}</TableCell>
                                     <TableCell>{formatDate(campaign.sent_at)}</TableCell>
                                     <TableCell className="text-right">{getStatusBadge(campaign.status)}</TableCell>
                                 </TableRow>
                                 )) : (
                                   <TableRow>
                                     <TableCell colSpan={4} className="h-24 text-center">
-                                      Aucune campagne pour le moment.
+                                      {t('mailing.campaigns.noCampaigns')}
                                     </TableCell>
                                   </TableRow>
                                 )}

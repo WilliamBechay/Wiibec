@@ -1,5 +1,4 @@
-
-    import React, { useState } from 'react';
+import React, { useState } from 'react';
     import { Helmet } from 'react-helmet';
     import { Link, useNavigate, useLocation } from 'react-router-dom';
     import { motion } from 'framer-motion';
@@ -10,6 +9,7 @@
     import { Label } from '@/components/ui/label';
     import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
     import { useToast } from '@/components/ui/use-toast';
+    import { useTranslation } from 'react-i18next';
 
     const LoginPage = () => {
       const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,6 +20,7 @@
       const navigate = useNavigate();
       const location = useLocation();
       const { toast } = useToast();
+      const { t } = useTranslation('auth');
 
       const from = location.state?.from?.pathname || "/dashboard";
 
@@ -32,10 +33,10 @@
         setLoading(true);
         const { success, error } = await login(formData.email, formData.password);
         if (success) {
-          toast({ title: "Connexion réussie !", description: "Bienvenue sur votre espace WIIBEC." });
+          toast({ title: t('loginPage.successToastTitle'), description: t('loginPage.successToastDescription') });
           navigate(from, { replace: true });
         } else {
-          toast({ title: "Erreur de connexion", description: error, variant: "destructive" });
+          toast({ title: t('loginPage.errorToastTitle'), description: error, variant: "destructive" });
         }
         setLoading(false);
       };
@@ -48,18 +49,18 @@
           className="flex justify-center items-center py-12 px-4"
         >
           <Helmet>
-            <title>Connexion - WIIBEC</title>
-            <meta name="description" content="Connectez-vous à votre compte WIIBEC." />
+            <title>{t('loginPage.helmetTitle')}</title>
+            <meta name="description" content={t('loginPage.helmetDescription')} />
           </Helmet>
           <Card className="w-full max-w-md">
             <CardHeader className="text-center">
-              <CardTitle className="text-3xl font-bold text-primary">Connexion</CardTitle>
-              <CardDescription>Accédez à votre espace personnel</CardDescription>
+              <CardTitle className="text-3xl font-bold text-primary">{t('loginPage.title')}</CardTitle>
+              <CardDescription>{t('loginPage.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t('loginPage.emailLabel')}</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} className="pl-10" placeholder="votre@email.com" />
@@ -67,9 +68,9 @@
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="password">Mot de passe</Label>
+                    <Label htmlFor="password">{t('loginPage.passwordLabel')}</Label>
                     <Link to="/forgot-password" className="text-sm font-medium text-primary hover:text-primary/80">
-                      Mot de passe oublié ?
+                      {t('loginPage.forgotPassword')}
                     </Link>
                   </div>
                   <div className="relative">
@@ -81,14 +82,14 @@
                   </div>
                 </div>
                 <Button type="submit" className="w-full bg-primary text-primary-foreground font-bold hover:bg-primary/90" disabled={loading}>
-                  {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> Connexion...</> : 'Se connecter'}
+                  {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> {t('loginPage.loggingInButton')}</> : t('loginPage.loginButton')}
                 </Button>
               </form>
               <div className="mt-6 text-center text-sm">
                 <p className="text-muted-foreground">
-                  Pas encore de compte ?{' '}
+                  {t('loginPage.noAccount')}{' '}
                   <Link to="/register" className="font-medium text-primary hover:text-primary/80">
-                    S'inscrire
+                    {t('loginPage.register')}
                   </Link>
                 </p>
               </div>
@@ -99,4 +100,3 @@
     };
 
     export default LoginPage;
-  

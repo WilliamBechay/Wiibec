@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { PowerOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 const PageDisabledPage = () => {
+  const { t } = useTranslation('common');
   return (
     <>
       <Helmet>
-        <title>Page Indisponible - WIIBEC</title>
+        <title>{t('pageDisabled.title')}</title>
         <meta name="description" content="Cette page est actuellement indisponible." />
       </Helmet>
       <motion.div
@@ -19,12 +21,12 @@ const PageDisabledPage = () => {
         className="flex flex-col items-center justify-center text-center min-h-[60vh] py-12"
       >
         <PowerOff className="w-24 h-24 text-destructive mx-auto mb-6" />
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">Page temporairement indisponible</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">{t('pageDisabled.heading')}</h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-          Cette page est actuellement désactivée par un administrateur. Veuillez réessayer plus tard ou contacter le support si vous pensez qu'il s'agit d'une erreur.
+          {t('pageDisabled.description')}
         </p>
         <Button asChild>
-          <Link to="/">Retour à l'accueil</Link>
+          <Link to="/">{t('pageDisabled.backToHome')}</Link>
         </Button>
       </motion.div>
     </>

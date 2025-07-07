@@ -1,0 +1,286 @@
+{
+  "users": {
+    "title": "User Management - Administration",
+    "heading": "User Management",
+    "addUser": "Add User",
+    "listTitle": "User List",
+    "listDescription": "Total of {{total}} users. View, edit, or delete profiles.",
+    "searchPlaceholder": "Search by name, last name, or email...",
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "registeredDate": "Registration Date",
+      "actions": "Actions"
+    },
+    "loading": "Loading users...",
+    "noUsers": "No users found.",
+    "roleAdmin": "Admin",
+    "roleUser": "User",
+    "actionsMenu": {
+      "open": "Open menu",
+      "title": "Actions",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "deleteDialog": {
+      "title": "Are you absolutely sure?",
+      "description": "This action is irreversible. The account of {{name}} ({{email}}) and all associated data will be permanently deleted.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "toast": {
+      "configError": "Configuration error",
+      "configErrorDesc": "The relationship between users and profiles could not be found. Please contact support.",
+      "loadError": "Could not load users: {{error}}",
+      "updateSuccess": "User profile updated.",
+      "updateError": "Could not update profile: {{error}}",
+      "addSuccess": "New user created.",
+      "addError": "Could not create user: {{error}}",
+      "deleteSuccess": "User has been deleted.",
+      "deleteError": "Could not delete user: {{error}}"
+    }
+  },
+  "settings": {
+    "title": "Settings - Administration",
+    "heading": "Settings",
+    "pageVisibility": "Page Visibility",
+    "pageVisibilityDesc": "Enable or disable public access to different pages of the site. Administrators will always have access.",
+    "loading": "Loading settings...",
+    "updateSuccess": "Setting updated",
+    "updateSuccessDesc": "The page \"{{pageName}}\" has been {{status}}.",
+    "enabled": "enabled",
+    "disabled": "disabled",
+    "updateError": "Could not update setting: {{error}}"
+  },
+  "sitemap": {
+    "title": "Visual Sitemap - Administration",
+    "heading": "Visual Sitemap",
+    "downloadButton": "Download sitemap.xml",
+    "cardTitle": "Site Tree",
+    "cardDesc": "Visual and vertical representation of the page structure.",
+    "loading": "Loading pages for sitemap...",
+    "downloadSuccess": "Download successful",
+    "downloadSuccessDesc": "The sitemap.xml file has been generated.",
+    "node": {
+      "userSpace": "User Area",
+      "enabled": "Enabled",
+      "disabled": "Disabled"
+    }
+  },
+  "organization": {
+    "title": "NPO Info - Administration",
+    "heading": "Organization Information",
+    "cardTitle": "NPO Details",
+    "cardDesc": "This information will appear on the tax receipts generated for donors.",
+    "form": {
+      "orgName": "Organization Name",
+      "regNumber": "Registration Number",
+      "address": "Address",
+      "city": "City",
+      "province": "Province",
+      "postalCode": "Postal Code",
+      "contactEmail": "Contact Email",
+      "website": "Website"
+    },
+    "saveButton": "Save Changes",
+    "loadError": "Could not load organization information.",
+    "saveError": "Save failed. {{error}}",
+    "saveSuccess": "Organization information has been updated."
+  },
+  "messages": {
+    "title": "Messages - Administration",
+    "heading": "Inbox",
+    "cardTitle": "Contact Messages",
+    "cardDesc": "Messages received via the contact form.",
+    "loading": "Loading messages...",
+    "table": {
+      "status": "Status",
+      "from": "From",
+      "email": "Email",
+      "message": "Message",
+      "receivedOn": "Received on",
+      "action": "Action"
+    },
+    "noMessages": "No messages at the moment.",
+    "viewButton": "View",
+    "dialog": {
+      "title": "Message from {{name}}",
+      "receivedOn": "Received on {{date}}",
+      "contact": "Contact:",
+      "replyButton": "Reply by email",
+      "closeButton": "Close"
+    },
+    "status": {
+      "new": "New",
+      "read": "Read"
+    },
+    "loadError": "Could not load messages."
+  },
+  "mailing": {
+    "title": "Mailing - Administration",
+    "heading": "Mailing",
+    "configRequired": "Configuration required",
+    "configDialog": {
+      "title": "Email sending service configuration",
+      "p1": "To send emails, this system uses a third-party service (e.g., Resend, SendGrid, Mailgun). You must configure an API key for this to work.",
+      "li1": "Sign up for a service like Resend.com.",
+      "li2": "Generate an API key.",
+      "li3": "Contact support to add this key to your Supabase secrets under the name `RESEND_API_KEY`.",
+      "li4": "Also configure `FROM_EMAIL` with the sending email address you have validated.",
+      "p2": "Without this configuration, emails will not actually be sent.",
+      "close": "Understood"
+    },
+    "tabs": {
+      "compose": "Compose",
+      "campaigns": "Campaigns"
+    },
+    "compose": {
+      "title": "New campaign",
+      "description": "Write and send an email to a group of users.",
+      "subject": "Subject",
+      "subjectPlaceholder": "The subject of your email",
+      "recipients": "Recipients",
+      "recipientsPlaceholder": "Select a group",
+      "groups": {
+        "all": "All users",
+        "donors": "Donors",
+        "admins": "Administrators"
+      },
+      "body": "Email Body",
+      "sendButton": "Send campaign",
+      "sendingButton": "Sending..."
+    },
+    "campaigns": {
+      "title": "Campaign History",
+      "description": "List of all sent or draft campaigns.",
+      "loading": "Loading campaigns...",
+      "table": {
+        "subject": "Subject",
+        "recipients": "Recipients",
+        "sentDate": "Sent Date",
+        "status": "Status"
+      },
+      "noCampaigns": "No campaigns at the moment.",
+      "statusLabels": {
+        "sent": "Sent",
+        "draft": "Draft",
+        "sending": "Sending...",
+        "failed": "Failed"
+      }
+    },
+    "toast": {
+      "loadError": "Could not load campaigns.",
+      "validationError": "Please fill in all fields.",
+      "sendSuccess": "Campaign sent successfully.",
+      "sendError": "Sending failed: {{error}}"
+    }
+  },
+  "logs": {
+    "title": "Logs - Administration",
+    "heading": "Activity Logs",
+    "filters": "Filters",
+    "searchPlaceholder": "Search in messages...",
+    "levelPlaceholder": "Log level",
+    "levels": {
+      "all": "All levels",
+      "info": "Info",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "loading": "Loading logs...",
+    "table": {
+      "level": "Level",
+      "message": "Message",
+      "date": "Date"
+    },
+    "noLogs": "No logs found.",
+    "loadError": "Error loading logs"
+  },
+  "invoices": {
+    "title": "Invoice Management - Administration",
+    "heading": "Invoice Management",
+    "cardTitle": "Donation Invoices",
+    "cardDesc": "Search and view tax receipts generated for each donation.",
+    "searchPlaceholder": "Search by invoice # or email...",
+    "loading": "Loading invoices...",
+    "table": {
+      "invoiceNo": "Invoice #",
+      "date": "Date",
+      "donor": "Donor",
+      "amount": "Amount",
+      "action": "Action"
+    },
+    "noInvoices": "No invoices found.",
+    "loadError": "Could not load invoices. {{error}}"
+  },
+  "invoiceIssues": {
+    "title": "Invoice Issue Management - Admin",
+    "cardTitle": "Reported Invoice Issues",
+    "cardDesc": "View and manage invoice issues submitted by donors.",
+    "loading": "Loading invoice issues...",
+    "noIssues": "No issues reported",
+    "noIssuesDesc": "The inbox is empty for now.",
+    "table": {
+      "invoiceNo": "Invoice #",
+      "user": "User",
+      "description": "Description",
+      "createdDate": "Creation Date",
+      "status": "Status"
+    },
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "resolved": "Resolved"
+    },
+    "loadError": "Could not load invoice issues.",
+    "updateSuccess": "Status updated",
+    "updateSuccessDesc": "The issue status has been changed to \"{{status}}\".",
+    "updateError": "Could not update status."
+  },
+  "donationGoal": {
+    "title": "Donation Goal - Administration",
+    "heading": "Donation Goal Settings",
+    "cardTitle": "Donation Progress Bar",
+    "cardDesc": "Edit the information displayed in the donation goal section on the homepage here.",
+    "form": {
+      "title": "Title",
+      "description": "Description",
+      "goalAmount": "Goal Amount ($)",
+      "basePercentage": "Base Percentage (%)"
+    },
+    "saveButton": "Save Changes",
+    "loadError": "Could not load donation goal settings.",
+    "saveError": "Save failed. {{error}}",
+    "saveSuccess": "Donation goal settings have been updated."
+  },
+  "analytics": {
+    "title": "Analytics - Administration",
+    "heading": "Analytics",
+    "loading": "Loading data...",
+    "cards": {
+      "totalRevenue": "Total Revenue",
+      "totalRevenueDesc": "Total successful donations",
+      "totalUsers": "Total Users",
+      "totalUsersDesc": "Total number of registered users",
+      "avgDonation": "Average Donation",
+      "avgDonationDesc": "Based on {{count}} donations",
+      "totalDonations": "Total Donations",
+      "totalDonationsDesc": "Number of transactions"
+    },
+    "charts": {
+      "donationsPerDay": "Donations per day",
+      "donationsTotal": "Total donations",
+      "userGrowth": "User Growth",
+      "cumulativeUsers": "Total cumulative users"
+    },
+    "recentDonations": {
+      "title": "Recent Donations",
+      "donor": "Donor",
+      "amount": "Amount",
+      "date": "Date",
+      "anonymous": "Anonymous"
+    },
+    "loadError": "Error fetching data"
+  }
+}

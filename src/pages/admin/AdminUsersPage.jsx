@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, PlusCircle, Trash2, Edit, UserX, Search } from 'lucide-react';
+import { MoreHorizontal, PlusCircle, Edit, UserX, Search } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import UserEditDialog from '@/components/admin/UserEditDialog';
 import AddUserDialog from '@/components/admin/AddUserDialog';
+import { useTranslation } from 'react-i18next';
 
 const AdminUsersPage = () => {
   const { toast } = useToast();
@@ -23,6 +24,7 @@ const AdminUsersPage = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [pagination, setPagination] = useState({ page: 0, pageSize: 10, total: 0 });
+  const { t } = useTranslation('admin');
 
   const fetchUsers = useCallback(async () => {
     setLoading(true);
@@ -44,7 +46,7 @@ const AdminUsersPage = () => {
 
       if (error) {
         if (error.message.includes("could not find a relationship")) {
-           toast({ title: "Erreur de configuration", description: "La relation entre utilisateurs et profils est introuvable. Veuillez contacter le support.", variant: "destructive" });
+           toast({ title: t('users.toast.configError'), description: t('users.toast.configErrorDesc'), variant: "destructive" });
         } else {
            throw error;
         }
@@ -54,11 +56,11 @@ const AdminUsersPage = () => {
       setPagination(prev => ({ ...prev, total: count || 0 }));
 
     } catch (error) {
-      toast({ title: "Erreur", description: `Impossible de charger les utilisateurs: ${error.message}`, variant: "destructive" });
+      toast({ title: t('common:errors.error'), description: t('users.toast.loadError', { error: error.message }), variant: "destructive" });
     } finally {
       setLoading(false);
     }
-  }, [toast, pagination.page, pagination.pageSize, searchTerm]);
+  }, [toast, pagination.page, pagination.pageSize, searchTerm, t]);
 
   useEffect(() => {
     fetchUsers();
@@ -77,10 +79,10 @@ const AdminUsersPage = () => {
 
       if (error) throw error;
 
-      toast({ title: "Succès", description: "Profil utilisateur mis à jour." });
+      toast({ title: t('auth:resetPasswordPage.successToastTitle'), description: t('users.toast.updateSuccess') });
       fetchUsers();
     } catch (error) {
-      toast({ title: "Erreur", description: `Impossible de mettre à jour le profil: ${error.message}`, variant: "destructive" });
+      toast({ title: t('common:errors.error'), description: t('users.toast.updateError', { error: error.message }), variant: "destructive" });
     }
   };
 
@@ -97,7 +99,6 @@ const AdminUsersPage = () => {
       });
       if (error) throw error;
       
-      // Update role if is_admin is checked
       if(newUserData.is_admin) {
         const { error: profileError } = await supabase
           .from('profiles')
@@ -106,10 +107,10 @@ const AdminUsersPage = () => {
         if (profileError) throw profileError;
       }
 
-      toast({ title: "Succès", description: "Nouvel utilisateur créé." });
+      toast({ title: t('auth:resetPasswordPage.successToastTitle'), description: t('users.toast.addSuccess') });
       fetchUsers();
     } catch (error) {
-       toast({ title: "Erreur", description: `Impossible de créer l'utilisateur: ${error.message}`, variant: "destructive" });
+       toast({ title: t('common:errors.error'), description: t('users.toast.addError', { error: error.message }), variant: "destructive" });
     }
   }
 
@@ -129,10 +130,10 @@ const AdminUsersPage = () => {
       const { error } = await supabase.auth.admin.deleteUser(selectedUser.id);
       if (error) throw error;
       
-      toast({ title: "Succès", description: "L'utilisateur a été supprimé." });
+      toast({ title: t('auth:resetPasswordPage.successToastTitle'), description: t('users.toast.deleteSuccess') });
       fetchUsers();
     } catch (error) {
-      toast({ title: "Erreur", description: `Impossible de supprimer l'utilisateur: ${error.message}`, variant: "destructive" });
+      toast({ title: t('common:errors.error'), description: t('users.toast.deleteError', { error: error.message }), variant: "destructive" });
     } finally {
       setIsDeleteOpen(false);
       setSelectedUser(null);
@@ -151,7 +152,7 @@ const AdminUsersPage = () => {
   return (
     <>
       <Helmet>
-        <title>Utilisateurs - Administration</title>
+        <title>{t('users.title')}</title>
         <meta name="description" content="Gestion des utilisateurs de la plateforme." />
       </Helmet>
       <motion.div
@@ -161,23 +162,23 @@ const AdminUsersPage = () => {
         className="space-y-6"
       >
         <div className="flex items-center justify-between space-x-4">
-          <h1 className="text-3xl font-bold tracking-tight">Gestion des Utilisateurs</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('users.heading')}</h1>
           <Button onClick={() => setIsAddOpen(true)}>
             <PlusCircle className="mr-2 h-4 w-4" />
-            Ajouter un utilisateur
+            {t('users.addUser')}
           </Button>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Liste des utilisateurs</CardTitle>
+            <CardTitle>{t('users.listTitle')}</CardTitle>
             <CardDescription>
-              {`Total de ${pagination.total} utilisateurs. Consultez, modifiez ou supprimez les profils.`}
+              {t('users.listDescription', { total: pagination.total })}
             </CardDescription>
              <div className="relative pt-2">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Rechercher par nom, prénom ou email..."
+                placeholder={t('users.searchPlaceholder')}
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="pl-8 w-full md:w-1/3"
@@ -189,18 +190,18 @@ const AdminUsersPage = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Nom</TableHead>
-                    <TableHead className="hidden md:table-cell">Email</TableHead>
-                    <TableHead>Rôle</TableHead>
-                    <TableHead className="hidden sm:table-cell">Date d'inscription</TableHead>
-                    <TableHead><span className="sr-only">Actions</span></TableHead>
+                    <TableHead>{t('users.table.name')}</TableHead>
+                    <TableHead className="hidden md:table-cell">{t('users.table.email')}</TableHead>
+                    <TableHead>{t('users.table.role')}</TableHead>
+                    <TableHead className="hidden sm:table-cell">{t('users.table.registeredDate')}</TableHead>
+                    <TableHead><span className="sr-only">{t('users.table.actions')}</span></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {loading ? (
                     <TableRow>
                       <TableCell colSpan={5} className="h-24 text-center">
-                        Chargement des utilisateurs...
+                        {t('users.loading')}
                       </TableCell>
                     </TableRow>
                   ) : users.length > 0 ? (
@@ -208,26 +209,26 @@ const AdminUsersPage = () => {
                       <TableRow key={user.id}>
                         <TableCell className="font-medium">{user.first_name} {user.last_name}</TableCell>
                         <TableCell className="hidden md:table-cell">{user.users?.email}</TableCell>
-                        <TableCell>{user.is_admin ? 'Admin' : 'Utilisateur'}</TableCell>
+                        <TableCell>{user.is_admin ? t('users.roleAdmin') : t('users.roleUser')}</TableCell>
                         <TableCell className="hidden sm:table-cell">{formatDate(user.users?.created_at)}</TableCell>
                         <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Ouvrir le menu</span>
+                                <span className="sr-only">{t('users.actionsMenu.open')}</span>
                                 <MoreHorizontal className="h-4 w-4" />
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              <DropdownMenuLabel>{t('users.actionsMenu.title')}</DropdownMenuLabel>
                               <DropdownMenuItem onClick={() => handleEdit(user)}>
                                 <Edit className="mr-2 h-4 w-4" />
-                                Modifier
+                                {t('users.actionsMenu.edit')}
                               </DropdownMenuItem>
                               <DropdownMenuSeparator />
                               <DropdownMenuItem onClick={() => handleDelete(user)} className="text-red-600 focus:text-red-600">
                                 <UserX className="mr-2 h-4 w-4" />
-                                Supprimer
+                                {t('users.actionsMenu.delete')}
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
@@ -237,7 +238,7 @@ const AdminUsersPage = () => {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={5} className="h-24 text-center">
-                        Aucun utilisateur trouvé.
+                        {t('users.noUsers')}
                       </TableCell>
                     </TableRow>
                   )}
@@ -287,14 +288,14 @@ const AdminUsersPage = () => {
       <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Êtes-vous absolument sûr ?</AlertDialogTitle>
+            <AlertDialogTitle>{t('users.deleteDialog.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Cette action est irréversible. Le compte de {selectedUser?.first_name} {selectedUser?.last_name} ({selectedUser?.users?.email}) et toutes ses données associées seront définitivement supprimés.
+              {t('users.deleteDialog.description', { name: `${selectedUser?.first_name} ${selectedUser?.last_name}`, email: selectedUser?.users?.email })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setSelectedUser(null)}>Annuler</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Supprimer</AlertDialogAction>
+            <AlertDialogCancel onClick={() => setSelectedUser(null)}>{t('users.deleteDialog.cancel')}</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{t('users.deleteDialog.confirm')}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

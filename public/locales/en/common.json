@@ -1,0 +1,45 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "partners": "Partners",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "adminPanel": "Admin Panel",
+    "donate": "Donate",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "footer": {
+    "description": "WIIBEC is a non-profit organization dedicated to the financial education of young people.",
+    "contactUs": "Contact Us",
+    "email": "contact@wiibec.org",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "donate": "Donate",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "copyright": "© {{year}} WIIBEC. All rights reserved."
+  },
+  "languageSwitcher": {
+    "changeLanguage": "Change language",
+    "english": "English",
+    "french": "French"
+  },
+  "pageDisabled": {
+    "title": "Page Unavailable - WIIBEC",
+    "heading": "Page temporarily unavailable",
+    "description": "This page is currently disabled by an administrator. Please try again later or contact support if you believe this is an error.",
+    "backToHome": "Back to Home"
+  },
+  "errors": {
+    "error": "Error",
+    "loading": "Loading...",
+    "notProvided": "Not provided"
+  }
+}

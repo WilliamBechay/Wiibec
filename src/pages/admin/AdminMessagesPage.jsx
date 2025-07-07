@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -19,6 +18,7 @@ import {
   DialogFooter,
   DialogClose
 } from "@/components/ui/dialog";
+import { useTranslation } from 'react-i18next';
 
 const AdminMessagesPage = () => {
   const { toast } = useToast();
@@ -26,6 +26,7 @@ const AdminMessagesPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { t } = useTranslation('admin');
 
   const fetchMessages = useCallback(async () => {
     setLoading(true);
@@ -38,11 +39,11 @@ const AdminMessagesPage = () => {
       if (error) throw error;
       setMessages(data);
     } catch (error) {
-      toast({ title: 'Erreur', description: 'Impossible de charger les messages.', variant: 'destructive' });
+      toast({ title: t('common:errors.error'), description: t('messages.loadError'), variant: 'destructive' });
     } finally {
       setLoading(false);
     }
-  }, [toast]);
+  }, [toast, t]);
 
   useEffect(() => {
     fetchMessages();
@@ -58,7 +59,6 @@ const AdminMessagesPage = () => {
           .update({ status: 'read' })
           .eq('id', message.id);
         if (error) throw error;
-        // Update local state to reflect the change
         setMessages(messages.map(m => m.id === message.id ? { ...m, status: 'read' } : m));
       } catch(error) {
         console.error("Failed to update message status:", error)
@@ -70,8 +70,8 @@ const AdminMessagesPage = () => {
 
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'new': return <Badge variant="default" className="bg-blue-500">Nouveau</Badge>;
-      case 'read': return <Badge variant="secondary">Lu</Badge>;
+      case 'new': return <Badge variant="default" className="bg-blue-500">{t('messages.status.new')}</Badge>;
+      case 'read': return <Badge variant="secondary">{t('messages.status.read')}</Badge>;
       default: return <Badge variant="outline">{status}</Badge>;
     }
   };
@@ -79,7 +79,7 @@ const AdminMessagesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Messages - Administration</title>
+        <title>{t('messages.title')}</title>
       </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -88,7 +88,7 @@ const AdminMessagesPage = () => {
         className="space-y-6"
       >
         <div className="flex items-center justify-between">
-           <h1 className="text-3xl font-bold tracking-tight">Boîte de réception</h1>
+           <h1 className="text-3xl font-bold tracking-tight">{t('messages.heading')}</h1>
             <Button variant="outline" size="icon" onClick={fetchMessages} disabled={loading}>
               <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             </Button>
@@ -96,8 +96,8 @@ const AdminMessagesPage = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Messages de contact</CardTitle>
-            <CardDescription>Messages reçus via le formulaire de contact.</CardDescription>
+            <CardTitle>{t('messages.cardTitle')}</CardTitle>
+            <CardDescription>{t('messages.cardDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             {loading ? (
@@ -109,12 +109,12 @@ const AdminMessagesPage = () => {
               <Table>
                   <TableHeader>
                       <TableRow>
-                      <TableHead>Statut</TableHead>
-                      <TableHead>De</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Message</TableHead>
-                      <TableHead>Reçu le</TableHead>
-                      <TableHead className="text-right">Action</TableHead>
+                      <TableHead>{t('messages.table.status')}</TableHead>
+                      <TableHead>{t('messages.table.from')}</TableHead>
+                      <TableHead>{t('messages.table.email')}</TableHead>
+                      <TableHead>{t('messages.table.message')}</TableHead>
+                      <TableHead>{t('messages.table.receivedOn')}</TableHead>
+                      <TableHead className="text-right">{t('messages.table.action')}</TableHead>
                       </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -127,14 +127,14 @@ const AdminMessagesPage = () => {
                           <TableCell>{formatDate(message.created_at)}</TableCell>
                           <TableCell className="text-right">
                             <Button variant="outline" size="sm" onClick={() => handleViewMessage(message)}>
-                              Voir
+                              {t('messages.viewButton')}
                             </Button>
                           </TableCell>
                       </TableRow>
                       )) : (
                         <TableRow>
                           <TableCell colSpan={6} className="h-24 text-center">
-                            Aucun message pour le moment.
+                            {t('messages.noMessages')}
                           </TableCell>
                         </TableRow>
                       )}
@@ -150,27 +150,27 @@ const AdminMessagesPage = () => {
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent className="sm:max-w-[525px]">
             <DialogHeader>
-              <DialogTitle className="flex items-center"><MessageSquare className="mr-2 h-5 w-5" /> Message de {selectedMessage.name}</DialogTitle>
+              <DialogTitle className="flex items-center"><MessageSquare className="mr-2 h-5 w-5" /> {t('messages.dialog.title', { name: selectedMessage.name })}</DialogTitle>
               <DialogDescription>
-                Reçu le {formatDate(selectedMessage.created_at)}
+                {t('messages.dialog.receivedOn', { date: formatDate(selectedMessage.created_at) })}
               </DialogDescription>
             </DialogHeader>
             <div className="py-4 space-y-4">
               <p className="text-sm text-muted-foreground whitespace-pre-wrap">{selectedMessage.message}</p>
               <div className="border-t pt-4">
-                <p className="text-sm font-medium">Contact :</p>
+                <p className="text-sm font-medium">{t('messages.dialog.contact')}</p>
                 <p className="text-sm text-muted-foreground">{selectedMessage.email}</p>
               </div>
             </div>
             <DialogFooter>
               <a href={`mailto:${selectedMessage.email}?subject=Re: Votre message à WIIBEC`} className="w-full">
                 <Button className="w-full">
-                  <Mail className="mr-2 h-4 w-4" /> Répondre par e-mail
+                  <Mail className="mr-2 h-4 w-4" /> {t('messages.dialog.replyButton')}
                 </Button>
               </a>
               <DialogClose asChild>
                 <Button type="button" variant="secondary">
-                  Fermer
+                  {t('messages.dialog.closeButton')}
                 </Button>
               </DialogClose>
             </DialogFooter>

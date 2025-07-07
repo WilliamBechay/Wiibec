@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -7,14 +6,15 @@ import { useToast } from '@/components/ui/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Inbox } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const AdminInvoiceIssuesPage = () => {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { t } = useTranslation('admin');
 
   const fetchIssues = useCallback(async () => {
     setLoading(true);
@@ -33,13 +33,13 @@ const AdminInvoiceIssuesPage = () => {
     } catch (error) {
       toast({
         variant: 'destructive',
-        title: 'Erreur',
-        description: 'Impossible de charger les problèmes de factures.',
+        title: t('common:errors.error'),
+        description: t('invoiceIssues.loadError'),
       });
     } finally {
       setLoading(false);
     }
-  }, [toast]);
+  }, [toast, t]);
 
   useEffect(() => {
     fetchIssues();
@@ -63,14 +63,14 @@ const AdminInvoiceIssuesPage = () => {
         prevIssues.map(issue => (issue.id === issueId ? { ...issue, ...data } : issue))
       );
       toast({
-        title: 'Statut mis à jour',
-        description: `Le statut du problème a été changé à "${newStatus}".`,
+        title: t('invoiceIssues.updateSuccess'),
+        description: t('invoiceIssues.updateSuccessDesc', { status: newStatus }),
       });
     } catch (error) {
       toast({
         variant: 'destructive',
-        title: 'Erreur',
-        description: 'Impossible de mettre à jour le statut.',
+        title: t('common:errors.error'),
+        description: t('invoiceIssues.updateError'),
       });
     }
   };
@@ -99,7 +99,7 @@ const AdminInvoiceIssuesPage = () => {
   return (
     <>
       <Helmet>
-        <title>Gestion des Problèmes de Factures - Admin</title>
+        <title>{t('invoiceIssues.title')}</title>
         <meta name="description" content="Gérez les problèmes de factures signalés par les utilisateurs." />
       </Helmet>
       <motion.div
@@ -110,9 +110,9 @@ const AdminInvoiceIssuesPage = () => {
       >
         <Card>
           <CardHeader>
-            <CardTitle>Problèmes de Factures Signalés</CardTitle>
+            <CardTitle>{t('invoiceIssues.cardTitle')}</CardTitle>
             <CardDescription>
-              Consultez et gérez les problèmes de factures soumis par les donateurs.
+              {t('invoiceIssues.cardDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -123,18 +123,18 @@ const AdminInvoiceIssuesPage = () => {
             ) : issues.length === 0 ? (
               <div className="text-center py-16">
                 <Inbox className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 className="mt-2 text-sm font-medium text-foreground">Aucun problème signalé</h3>
-                <p className="mt-1 text-sm text-muted-foreground">La boîte de réception est vide pour le moment.</p>
+                <h3 className="mt-2 text-sm font-medium text-foreground">{t('invoiceIssues.noIssues')}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{t('invoiceIssues.noIssuesDesc')}</p>
               </div>
             ) : (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Facture #</TableHead>
-                    <TableHead>Utilisateur</TableHead>
-                    <TableHead>Description</TableHead>
-                    <TableHead>Date de création</TableHead>
-                    <TableHead>Statut</TableHead>
+                    <TableHead>{t('invoiceIssues.table.invoiceNo')}</TableHead>
+                    <TableHead>{t('invoiceIssues.table.user')}</TableHead>
+                    <TableHead>{t('invoiceIssues.table.description')}</TableHead>
+                    <TableHead>{t('invoiceIssues.table.createdDate')}</TableHead>
+                    <TableHead>{t('invoiceIssues.table.status')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -154,13 +154,13 @@ const AdminInvoiceIssuesPage = () => {
                         >
                           <SelectTrigger className="w-[180px]">
                             <SelectValue>
-                              <Badge variant={getStatusBadgeVariant(issue.status)}>{issue.status}</Badge>
+                              <Badge variant={getStatusBadgeVariant(issue.status)}>{t(`invoiceIssues.status.${issue.status.replace('_', '')}`)}</Badge>
                             </SelectValue>
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="open">Ouvert</SelectItem>
-                            <SelectItem value="in_progress">En cours</SelectItem>
-                            <SelectItem value="resolved">Résolu</SelectItem>
+                            <SelectItem value="open">{t('invoiceIssues.status.open')}</SelectItem>
+                            <SelectItem value="in_progress">{t('invoiceIssues.status.inProgress')}</SelectItem>
+                            <SelectItem value="resolved">{t('invoiceIssues.status.resolved')}</SelectItem>
                           </SelectContent>
                         </Select>
                       </TableCell>

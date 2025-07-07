@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DollarSign, Users, TrendingUp, Coins as HandCoins } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { useTranslation } from 'react-i18next';
 
 const StatCard = ({ title, value, icon: Icon, description, currency = '' }) => (
   <Card>
@@ -33,12 +34,12 @@ const AdminAnalyticsPage = () => {
   const [usersByDate, setUsersByDate] = useState([]);
   const [recentDonations, setRecentDonations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation('admin');
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Fetch stats
         const { data: donationsData, error: donationsError } = await supabase
           .from('donations')
           .select('amount, created_at')
@@ -54,7 +55,6 @@ const AdminAnalyticsPage = () => {
         const donationCount = donationsData.length;
         const averageDonation = donationCount > 0 ? totalDonations / donationCount : 0;
 
-        // Process donations by date
         const donationsGrouped = donationsData.reduce((acc, d) => {
           const date = new Date(d.created_at).toLocaleDateString('fr-CA');
           acc[date] = (acc[date] || 0) + d.amount;
@@ -64,7 +64,6 @@ const AdminAnalyticsPage = () => {
           .map(([date, total]) => ({ date, total: parseFloat(total.toFixed(2)) }))
           .sort((a,b) => new Date(a.date) - new Date(b.date));
 
-        // Fetch users by date
         const { data: usersData, error: usersDateError } = await supabase
           .from('profiles')
           .select('created_at');
@@ -84,8 +83,6 @@ const AdminAnalyticsPage = () => {
             return { date, count: cumulativeUsers };
           });
 
-
-        // Fetch recent donations
         const { data: recentData, error: recentError } = await supabase
           .from('donations')
           .select('id, amount, created_at, profile:profiles(first_name, last_name)')
@@ -106,7 +103,7 @@ const AdminAnalyticsPage = () => {
 
       } catch (error) {
         toast({
-          title: 'Erreur lors de la récupération des données',
+          title: t('analytics.loadError'),
           description: error.message,
           variant: 'destructive',
         });
@@ -116,14 +113,14 @@ const AdminAnalyticsPage = () => {
     };
 
     fetchData();
-  }, [toast]);
+  }, [toast, t]);
 
   const formatDate = (dateString) => new Date(dateString).toLocaleDateString('fr-CA');
 
   return (
     <>
       <Helmet>
-        <title>Analytics - Administration</title>
+        <title>{t('analytics.title')}</title>
         <meta name="description" content="Tableau de bord des analyses de la plateforme." />
       </Helmet>
       <motion.div
@@ -132,23 +129,23 @@ const AdminAnalyticsPage = () => {
         transition={{ duration: 0.5 }}
         className="space-y-6"
       >
-        <h1 className="text-3xl font-bold tracking-tight">Analytics</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('analytics.heading')}</h1>
         
         {loading ? (
-          <div className="text-center p-10">Chargement des données...</div>
+          <div className="text-center p-10">{t('analytics.loading')}</div>
         ) : (
           <>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <StatCard title="Revenus totaux" value={stats.totalDonations} icon={DollarSign} description="Total des dons réussis" currency="$" />
-              <StatCard title="Total utilisateurs" value={stats.totalUsers} icon={Users} description="Nombre total d'inscrits" />
-              <StatCard title="Don moyen" value={stats.averageDonation} icon={HandCoins} description={`Basé sur ${stats.donationCount} dons`} currency="$" />
-              <StatCard title="Total des dons" value={stats.donationCount} icon={TrendingUp} description="Nombre de transactions" />
+              <StatCard title={t('analytics.cards.totalRevenue')} value={stats.totalDonations} icon={DollarSign} description={t('analytics.cards.totalRevenueDesc')} currency="$" />
+              <StatCard title={t('analytics.cards.totalUsers')} value={stats.totalUsers} icon={Users} description={t('analytics.cards.totalUsersDesc')} />
+              <StatCard title={t('analytics.cards.avgDonation')} value={stats.averageDonation} icon={HandCoins} description={t('analytics.cards.avgDonationDesc', { count: stats.donationCount })} currency="$" />
+              <StatCard title={t('analytics.cards.totalDonations')} value={stats.donationCount} icon={TrendingUp} description={t('analytics.cards.totalDonationsDesc')} />
             </div>
 
             <div className="grid gap-4 md:grid-cols-2">
               <Card>
                 <CardHeader>
-                  <CardTitle>Dons par jour</CardTitle>
+                  <CardTitle>{t('analytics.charts.donationsPerDay')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -156,16 +153,16 @@ const AdminAnalyticsPage = () => {
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" />
                       <YAxis />
-                      <Tooltip formatter={(value) => [`$${value}`, 'Total']} />
+                      <Tooltip formatter={(value) => [`${value}`, t('analytics.charts.donationsTotal')]} />
                       <Legend />
-                      <Bar dataKey="total" fill="#8884d8" name="Total des dons" />
+                      <Bar dataKey="total" fill="#8884d8" name={t('analytics.charts.donationsTotal')} />
                     </BarChart>
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
-                  <CardTitle>Croissance des utilisateurs</CardTitle>
+                  <CardTitle>{t('analytics.charts.userGrowth')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -175,7 +172,7 @@ const AdminAnalyticsPage = () => {
                       <YAxis />
                       <Tooltip formatter={(value) => [value, 'Utilisateurs']} />
                       <Legend />
-                      <Line type="monotone" dataKey="count" stroke="#82ca9d" name="Total utilisateurs cumulés" />
+                      <Line type="monotone" dataKey="count" stroke="#82ca9d" name={t('analytics.charts.cumulativeUsers')} />
                     </LineChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -184,22 +181,22 @@ const AdminAnalyticsPage = () => {
             
             <Card>
               <CardHeader>
-                <CardTitle>Dons récents</CardTitle>
+                <CardTitle>{t('analytics.recentDonations.title')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Donateur</TableHead>
-                      <TableHead className="text-right">Montant</TableHead>
-                      <TableHead className="text-right">Date</TableHead>
+                      <TableHead>{t('analytics.recentDonations.donor')}</TableHead>
+                      <TableHead className="text-right">{t('analytics.recentDonations.amount')}</TableHead>
+                      <TableHead className="text-right">{t('analytics.recentDonations.date')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {recentDonations.map((donation) => (
                       <TableRow key={donation.id}>
                         <TableCell>
-                          {donation.profile ? `${donation.profile.first_name} ${donation.profile.last_name}` : 'Anonyme'}
+                          {donation.profile ? `${donation.profile.first_name} ${donation.profile.last_name}` : t('analytics.recentDonations.anonymous')}
                         </TableCell>
                         <TableCell className="text-right font-medium">${donation.amount.toFixed(2)}</TableCell>
                         <TableCell className="text-right">{formatDate(donation.created_at)}</TableCell>

@@ -1,0 +1,87 @@
+{
+  "profilePage": {
+    "helmetTitle": "My Profile - WIIBEC",
+    "helmetDescription": "Manage your WIIBEC profile. Edit your personal information and password.",
+    "title": "My Profile",
+    "subtitle": "Manage your personal and security information",
+    "memberSince": "Member since {{date}}",
+    "personalInfo": "Personal Information",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "security": "Security",
+    "changePassword": "Change your password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "passwordLengthError": "Password must be at least 6 characters long.",
+    "passwordMismatch": "Passwords do not match.",
+    "passwordUpdated": "Password updated",
+    "passwordUpdatedSuccess": "Your password has been changed successfully.",
+    "changePasswordButton": "Change Password",
+    "loadingError": "Could not load profile. Please try again."
+  },
+  "dashboardPage": {
+    "helmetTitle": "Dashboard - WIIBEC",
+    "helmetDescription": "Your WIIBEC personal space. Track your donations, view your profile, and see your impact on youth financial education.",
+    "greeting": "Hello, {{name}}! 👋",
+    "thankYou": "Thank you for supporting youth financial education with WIIBEC",
+    "dearMember": "dear member",
+    "tabs": {
+      "donations": "My Donations",
+      "invoices": "My Invoices",
+      "impact": "My Impact",
+      "activity": "Recent Activity"
+    },
+    "paymentSuccessTitle": "Payment successful!",
+    "paymentSuccessDescription": "Your donation has been received. Thank you for your support!",
+    "dataError": "Could not load your data.",
+    "recentActivities": {
+      "donation": "You made a donation",
+      "welcome": "Welcome to the WIIBEC community"
+    }
+  },
+  "donationPromptCard": {
+    "title": "Support our cause",
+    "description": "Every donation, big or small, helps us continue our mission of financial education for young people.",
+    "button": "Donate now"
+  },
+  "donatePage": {
+    "helmetTitle": "Make a donation - WIIBEC",
+    "helmetDescription": "Support our mission of financial education for young people. Every donation counts.",
+    "title": "Support our mission",
+    "subtitle": "Your generosity drives our impact.",
+    "personalDonation": "Personal Donation",
+    "companyDonation": "Company Donation",
+    "companyName": "Company Name",
+    "companyNamePlaceholder": "Your company name",
+    "companyAddress": "Company Address",
+    "companyAddressPlaceholder": "Address for the tax receipt",
+    "otherAmount": "Other",
+    "submitButton": "Donate {{amount}}",
+    "processingButton": "Processing...",
+    "loginError": "Please log in to make a donation.",
+    "stripeError": "Stripe Error"
+  },
+  "paymentSuccessPage": {
+    "helmetTitle": "Payment Status - WIIBEC",
+    "helmetDescription": "Status page for your donation.",
+    "verifying": "Verifying your payment...",
+    "verifyingDesc": "Please wait, we are confirming your donation and generating your receipt.",
+    "successTitle": "Thank you for your support!",
+    "successDesc": "Your donation of {{amount}} has been successfully processed.",
+    "receiptInfo": "A detailed receipt has been generated and is now available in your dashboard.",
+    "goToDashboard": "Go to dashboard",
+    "backToHome": "Back to home",
+    "errorTitle": "An error occurred",
+    "errorDesc": "We could not verify your payment. Please contact support if the problem persists.",
+    "retryButton": "Try donating again",
+    "missingSessionId": "Missing session ID.",
+    "verificationError": "Verification Error",
+    "paymentVerified": "Payment verified!",
+    "paymentVerifiedDesc": "Your donation has been successfully recorded."
+  }
+}

@@ -4,6 +4,8 @@ import React from 'react';
 
     import Layout from '@/components/Layout';
     import HomePage from '@/pages/HomePage';
+    import AboutPage from '@/pages/AboutPage';
+    import PartnersPage from '@/pages/PartnersPage';
     import DonatePage from '@/pages/DonatePage';
     import ContactPage from '@/pages/ContactPage';
     import LoginPage from '@/pages/LoginPage';
@@ -17,6 +19,7 @@ import React from 'react';
     import PageGuard from '@/components/PageGuard';
 
     import AdminLayout from '@/components/admin/AdminLayout';
+    import AdminUsersPage from '@/pages/admin/AdminUsersPage';
     import AdminMailingPage from '@/pages/admin/AdminMailingPage';
     import AdminAnalyticsPage from '@/pages/admin/AdminAnalyticsPage';
     import AdminLogsPage from '@/pages/admin/AdminLogsPage';
@@ -36,6 +39,8 @@ import React from 'react';
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageGuard pageKey="home"><HomePage /></PageGuard>} />
+              <Route path="/about" element={<PageGuard pageKey="about"><AboutPage /></PageGuard>} />
+              <Route path="/partners" element={<PageGuard pageKey="partners"><PartnersPage /></PageGuard>} />
               <Route path="/donate" element={<PageGuard pageKey="donate"><DonatePage /></PageGuard>} />
               <Route path="/contact" element={<PageGuard pageKey="contact"><ContactPage /></PageGuard>} />
               <Route path="/login" element={<PageGuard pageKey="login"><LoginPage /></PageGuard>} />
@@ -69,6 +74,7 @@ import React from 'react';
                 }
               >
                 <Route index element={<Navigate to="analytics" replace />} />
+                <Route path="users" element={<AdminUsersPage />} />
                 <Route path="mailing" element={<AdminMailingPage />} />
                 <Route path="messages" element={<PageGuard pageKey="messages_admin"><AdminMessagesPage /></PageGuard>} />
                 <Route path="analytics" element={<AdminAnalyticsPage />} />

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -12,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Heart, Building, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_live_51NIAKSLNtncrL2dnCRI93Zp7Tka287XGrcbWuJulL0FOCYOUA1DPGOQrzuHO3KQ7eGi6SpXiktnKPPd0AYWRGNQr00x8fkdEce');
 
@@ -24,6 +24,7 @@ const DonationForm = () => {
   const [companyName, setCompanyName] = useState('');
   const [companyAddress, setCompanyAddress] = useState('');
   const [loading, setLoading] = useState(false);
+  const { t, i18n } = useTranslation(['user', 'common']);
 
   const finalAmount = customAmount ? parseFloat(customAmount) || 0 : amount;
 
@@ -44,8 +45,8 @@ const DonationForm = () => {
     if (!user) {
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: "Veuillez vous connecter pour faire un don.",
+        title: t('common:errors.error'),
+        description: t('donatePage.loginError'),
       });
       setLoading(false);
       return;
@@ -75,14 +76,14 @@ const DonationForm = () => {
       if (stripeError) {
         toast({
           variant: "destructive",
-          title: "Erreur Stripe",
+          title: t('donatePage.stripeError'),
           description: stripeError.message,
         });
       }
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Erreur",
+        title: t('common:errors.error'),
         description: error.message,
       });
     } finally {
@@ -90,22 +91,27 @@ const DonationForm = () => {
     }
   };
 
+  const formatCurrency = (value) => {
+    const lang = i18n.language === 'fr' ? 'fr-CA' : 'en-US';
+    return new Intl.NumberFormat(lang, { style: 'currency', currency: 'CAD' }).format(value);
+  };
+
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       <form onSubmit={handleSubmit}>
         <Tabs value={donationType} onValueChange={setDonationType} className="w-full mb-8">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="personal"><Heart className="w-4 h-4 mr-2"/>Don Personnel</TabsTrigger>
-            <TabsTrigger value="company"><Building className="w-4 h-4 mr-2"/>Don d'Entreprise</TabsTrigger>
+            <TabsTrigger value="personal"><Heart className="w-4 h-4 mr-2"/>{t('donatePage.personalDonation')}</TabsTrigger>
+            <TabsTrigger value="company"><Building className="w-4 h-4 mr-2"/>{t('donatePage.companyDonation')}</TabsTrigger>
           </TabsList>
           <TabsContent value="company" className="mt-4 space-y-4">
             <div>
-              <Label htmlFor="companyName">Nom de l'entreprise</Label>
-              <Input id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Nom de votre entreprise" required={donationType === 'company'} />
+              <Label htmlFor="companyName">{t('donatePage.companyName')}</Label>
+              <Input id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder={t('donatePage.companyNamePlaceholder')} required={donationType === 'company'} />
             </div>
             <div>
-              <Label htmlFor="companyAddress">Adresse de l'entreprise</Label>
-              <Input id="companyAddress" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} placeholder="Adresse pour le reçu fiscal" required={donationType === 'company'} />
+              <Label htmlFor="companyAddress">{t('donatePage.companyAddress')}</Label>
+              <Input id="companyAddress" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} placeholder={t('donatePage.companyAddressPlaceholder')} required={donationType === 'company'} />
             </div>
           </TabsContent>
           <TabsContent value="personal"></TabsContent>
@@ -117,7 +123,7 @@ const DonationForm = () => {
           ))}
           <Input 
             type="number"
-            placeholder="Autre"
+            placeholder={t('donatePage.otherAmount')}
             value={customAmount}
             onChange={handleCustomAmountChange}
             className={`text-center ${customAmount ? 'border-primary' : ''} col-span-2 sm:col-span-1`}
@@ -125,7 +131,7 @@ const DonationForm = () => {
         </div>
 
         <Button type="submit" disabled={loading || finalAmount <= 0} className="w-full text-lg font-bold py-6">
-          {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Traitement...</> : `Faire un don de ${finalAmount.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD' })}`}
+          {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('donatePage.processingButton')}</> : t('donatePage.submitButton', { amount: formatCurrency(finalAmount) })}
         </Button>
       </form>
     </motion.div>
@@ -133,18 +139,19 @@ const DonationForm = () => {
 };
 
 const DonatePage = () => {
+  const { t } = useTranslation('user');
   return (
     <div className="max-w-2xl mx-auto px-4">
       <Helmet>
-        <title>Faire un don - WIIBEC</title>
-        <meta name="description" content="Soutenez notre mission d'éducation financière pour les jeunes. Chaque don compte." />
+        <title>{t('donatePage.helmetTitle')}</title>
+        <meta name="description" content={t('donatePage.helmetDescription')} />
       </Helmet>
 
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Card className="overflow-hidden">
           <CardHeader className="bg-muted/30 p-6 sm:p-8 text-center">
-            <CardTitle className="text-3xl sm:text-4xl font-extrabold text-primary">Soutenez notre mission</CardTitle>
-            <CardDescription className="text-lg sm:text-xl text-muted-foreground mt-2">Votre générosité est le moteur de notre impact.</CardDescription>
+            <CardTitle className="text-3xl sm:text-4xl font-extrabold text-primary">{t('donatePage.title')}</CardTitle>
+            <CardDescription className="text-lg sm:text-xl text-muted-foreground mt-2">{t('donatePage.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent className="p-6 sm:p-8">
             <DonationForm />

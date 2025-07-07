@@ -7,12 +7,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const AdminSettingsPage = () => {
   const { settings, loading, updateSetting } = useSettings();
   const { toast } = useToast();
   const [localSettings, setLocalSettings] = useState({});
   const [updating, setUpdating] = useState({});
+  const { t } = useTranslation('admin');
 
   useEffect(() => {
     if (!loading) {
@@ -25,13 +27,16 @@ const AdminSettingsPage = () => {
     const { success, error } = await updateSetting(pageKey, isEnabled);
     if (success) {
       toast({
-        title: 'Paramètre mis à jour',
-        description: `La page "${settings[pageKey].page_name}" a été ${isEnabled ? 'activée' : 'désactivée'}.`,
+        title: t('settings.updateSuccess'),
+        description: t('settings.updateSuccessDesc', {
+          pageName: settings[pageKey].page_name,
+          status: isEnabled ? t('settings.enabled') : t('settings.disabled'),
+        }),
       });
     } else {
       toast({
-        title: 'Erreur',
-        description: `Impossible de mettre à jour le paramètre: ${error.message}`,
+        title: t('common:errors.error'),
+        description: t('settings.updateError', { error: error.message }),
         variant: 'destructive',
       });
       // Revert UI on failure
@@ -48,7 +53,7 @@ const AdminSettingsPage = () => {
   return (
     <>
       <Helmet>
-        <title>Settings - Administration</title>
+        <title>{t('settings.title')}</title>
         <meta name="description" content="Gérez les paramètres généraux de la plateforme." />
       </Helmet>
       <motion.div
@@ -57,13 +62,13 @@ const AdminSettingsPage = () => {
         transition={{ duration: 0.5 }}
         className="space-y-6"
       >
-        <h1 className="text-3xl font-bold tracking-tight">Paramètres</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('settings.heading')}</h1>
         
         <Card>
           <CardHeader>
-            <CardTitle>Visibilité des pages</CardTitle>
+            <CardTitle>{t('settings.pageVisibility')}</CardTitle>
             <CardDescription>
-              Activez ou désactivez l'accès public aux différentes pages du site. Les administrateurs y auront toujours accès.
+              {t('settings.pageVisibilityDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>

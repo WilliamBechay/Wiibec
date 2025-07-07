@@ -1,0 +1,20 @@
+{
+  "helmetTitle": "Contact - WIIBEC",
+  "helmetDescription": "Contactez l'équipe de WIIBEC.",
+  "title": "Contactez-Nous",
+  "subtitle": "Une question, une proposition de partenariat ? Nous sommes à votre écoute.",
+  "formTitle": "Envoyer un message",
+  "formDescription": "Remplissez ce formulaire pour nous joindre.",
+  "nameLabel": "Nom",
+  "namePlaceholder": "Votre nom complet",
+  "emailLabel": "Email",
+  "emailPlaceholder": "votre.email@example.com",
+  "messageLabel": "Message",
+  "messagePlaceholder": "Votre message...",
+  "sendButton": "Envoyer le Message",
+  "sendingButton": "Envoi...",
+  "successToastTitle": "✅ Message envoyé !",
+  "successToastDescription": "Merci de nous avoir contactés. Nous reviendrons vers vous bientôt.",
+  "errorToastTitle": "❌ Une erreur est survenue",
+  "errorToastDescription": "Votre message n'a pas pu être envoyé. Veuillez réessayer."
+}

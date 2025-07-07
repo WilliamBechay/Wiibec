@@ -4,13 +4,16 @@ import { motion } from 'framer-motion';
 import { HeartHandshake as Handshake } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 const PartnersPage = () => {
+  const { t } = useTranslation('partners');
+
   return (
     <>
       <Helmet>
-        <title>Nos Partenaires - WIIBEC</title>
-        <meta name="description" content="Découvrez les partenaires qui nous soutiennent dans notre mission. Ensemble, nous créons un impact positif." />
+        <title>{t('helmetTitle')}</title>
+        <meta name="description" content={t('helmetDescription')} />
       </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -26,7 +29,7 @@ const PartnersPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            Nos Partenaires
+            {t('title')}
           </motion.h1>
           <motion.p 
             className="max-w-2xl mx-auto text-lg text-muted-foreground"
@@ -34,7 +37,7 @@ const PartnersPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            Nous sommes fiers de collaborer avec des organisations qui partagent nos valeurs et notre vision pour un avenir meilleur.
+            {t('subtitle')}
           </motion.p>
         </div>
 
@@ -51,19 +54,19 @@ const PartnersPage = () => {
                 </div>
                 <div>
                   <CardTitle className="text-2xl font-bold">Mindovest.com</CardTitle>
-                  <p className="text-sm text-muted-foreground">Partenaire Éducatif Principal</p>
+                  <p className="text-sm text-muted-foreground">{t('mainPartner')}</p>
                 </div>
               </CardHeader>
               <CardContent className="flex-grow space-y-4">
                 <div className="w-full h-40 bg-muted rounded-lg flex items-center justify-center">
-                  <img  alt="Logo de Mindovest.com" className="object-contain h-20" src="https://images.unsplash.com/photo-1642142785011-4a00c34c4a36" />
+                  <img  alt={t('logoAlt')} className="object-contain h-20" src="https://images.unsplash.com/photo-1642142785011-4a00c34c4a36" />
                 </div>
                 <p className="text-muted-foreground">
-                  Grâce à notre partenariat avec Mindovest.com, nous offrons des ressources éducatives de premier ordre pour soutenir le développement des compétences et l'autonomisation des communautés que nous servons.
+                  {t('partnerDescription')}
                 </p>
                 <Button asChild className="w-full">
                   <a href="https://mindovest.com" target="_blank" rel="noopener noreferrer">
-                    Visiter le site
+                    {t('visitSite')}
                   </a>
                 </Button>
               </CardContent>

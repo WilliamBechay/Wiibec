@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { CheckCircle, Loader2, AlertTriangle } from 'lucide-react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 const PaymentSuccessPage = () => {
   const location = useLocation();
@@ -13,6 +14,7 @@ const PaymentSuccessPage = () => {
   const { toast } = useToast();
   const [status, setStatus] = useState('loading');
   const [donationDetails, setDonationDetails] = useState(null);
+  const { t, i18n } = useTranslation(['user', 'common']);
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -22,8 +24,8 @@ const PaymentSuccessPage = () => {
       setStatus('error');
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: "ID de session manquant.",
+        title: t('common:errors.error'),
+        description: t('paymentSuccessPage.missingSessionId'),
       });
       return;
     }
@@ -42,8 +44,8 @@ const PaymentSuccessPage = () => {
           setStatus('success');
           setDonationDetails(responseData.donation);
           toast({
-            title: "Paiement vérifié!",
-            description: "Votre don a été enregistré avec succès.",
+            title: t('paymentSuccessPage.paymentVerified'),
+            description: t('paymentSuccessPage.paymentVerifiedDesc'),
             className: 'bg-green-500 text-white border-green-500'
           });
         } else {
@@ -53,14 +55,19 @@ const PaymentSuccessPage = () => {
         setStatus('error');
         toast({
           variant: "destructive",
-          title: "Erreur de vérification",
+          title: t('paymentSuccessPage.verificationError'),
           description: error.message,
         });
       }
     };
 
     verifyPayment();
-  }, [location, toast]);
+  }, [location, toast, t]);
+
+  const formatCurrency = (value) => {
+    const lang = i18n.language === 'fr' ? 'fr-CA' : 'en-US';
+    return new Intl.NumberFormat(lang, { style: 'currency', currency: 'CAD' }).format(value);
+  };
 
   const renderContent = () => {
     switch (status) {
@@ -68,8 +75,8 @@ const PaymentSuccessPage = () => {
         return (
           <div className="flex flex-col items-center justify-center text-center">
             <Loader2 className="w-16 h-16 animate-spin text-primary mb-4" />
-            <h1 className="text-2xl font-bold">Vérification de votre paiement...</h1>
-            <p className="text-muted-foreground">Veuillez patienter, nous confirmons votre don et générons votre reçu.</p>
+            <h1 className="text-2xl font-bold">{t('paymentSuccessPage.verifying')}</h1>
+            <p className="text-muted-foreground">{t('paymentSuccessPage.verifyingDesc')}</p>
           </div>
         );
       case 'success':
@@ -78,17 +85,17 @@ const PaymentSuccessPage = () => {
             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring' }}>
               <CheckCircle className="w-24 h-24 text-green-500 mx-auto mb-6" />
             </motion.div>
-            <h1 className="text-4xl font-extrabold mb-4">Merci pour votre soutien !</h1>
+            <h1 className="text-4xl font-extrabold mb-4">{t('paymentSuccessPage.successTitle')}</h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-md mx-auto">
-              Votre don de {donationDetails?.amount.toLocaleString('fr-CA', { style: 'currency', currency: 'CAD' })} a été traité avec succès.
+              {t('paymentSuccessPage.successDesc', { amount: formatCurrency(donationDetails?.amount || 0) })}
             </p>
-            <p className="mb-8">Un reçu détaillé a été généré et est maintenant disponible dans votre tableau de bord.</p>
+            <p className="mb-8">{t('paymentSuccessPage.receiptInfo')}</p>
             <div className="flex gap-4">
               <Button asChild>
-                <Link to="/dashboard">Aller au tableau de bord</Link>
+                <Link to="/dashboard">{t('paymentSuccessPage.goToDashboard')}</Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link to="/">Retour à l'accueil</Link>
+                <Link to="/">{t('paymentSuccessPage.backToHome')}</Link>
               </Button>
             </div>
           </div>
@@ -97,9 +104,9 @@ const PaymentSuccessPage = () => {
         return (
           <div className="text-center flex flex-col items-center">
             <AlertTriangle className="w-24 h-24 text-destructive mx-auto mb-6" />
-            <h1 className="text-4xl font-extrabold mb-4">Une erreur est survenue</h1>
-            <p className="text-xl text-muted-foreground mb-8">Nous n'avons pas pu vérifier votre paiement. Veuillez contacter le support si le problème persiste.</p>
-            <Button onClick={() => navigate('/donate')}>Réessayer de faire un don</Button>
+            <h1 className="text-4xl font-extrabold mb-4">{t('paymentSuccessPage.errorTitle')}</h1>
+            <p className="text-xl text-muted-foreground mb-8">{t('paymentSuccessPage.errorDesc')}</p>
+            <Button onClick={() => navigate('/donate')}>{t('paymentSuccessPage.retryButton')}</Button>
           </div>
         );
       default:
@@ -110,8 +117,8 @@ const PaymentSuccessPage = () => {
   return (
     <div className="container mx-auto flex items-center justify-center min-h-[60vh] p-4">
        <Helmet>
-        <title>Statut du paiement - WIIBEC</title>
-        <meta name="description" content="Page de statut de votre don." />
+        <title>{t('paymentSuccessPage.helmetTitle')}</title>
+        <meta name="description" content={t('paymentSuccessPage.helmetDescription')} />
       </Helmet>
       {renderContent()}
     </div>

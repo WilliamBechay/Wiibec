@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Save } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const AdminDonationGoalPage = () => {
   const [settings, setSettings] = useState({
@@ -20,6 +21,7 @@ const AdminDonationGoalPage = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation('admin');
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -32,8 +34,8 @@ const AdminDonationGoalPage = () => {
 
       if (error) {
         toast({
-          title: 'Erreur',
-          description: 'Impossible de charger les paramètres de l\'objectif de don.',
+          title: t('common:errors.error'),
+          description: t('donationGoal.loadError'),
           variant: 'destructive',
         });
         console.error(error);
@@ -44,7 +46,7 @@ const AdminDonationGoalPage = () => {
     };
 
     fetchSettings();
-  }, [toast]);
+  }, [toast, t]);
 
   const handleChange = (e) => {
     setSettings({ ...settings, [e.target.name]: e.target.value });
@@ -64,14 +66,14 @@ const AdminDonationGoalPage = () => {
 
     if (error) {
       toast({
-        title: 'Erreur',
-        description: 'La sauvegarde a échoué. ' + error.message,
+        title: t('common:errors.error'),
+        description: t('donationGoal.saveError', { error: error.message }),
         variant: 'destructive',
       });
     } else {
       toast({
-        title: 'Succès',
-        description: 'Les paramètres de l\'objectif de don ont été mis à jour.',
+        title: t('auth:resetPasswordPage.successToastTitle'),
+        description: t('donationGoal.saveSuccess'),
       });
     }
     setSaving(false);
@@ -88,7 +90,7 @@ const AdminDonationGoalPage = () => {
   return (
     <>
       <Helmet>
-        <title>Objectif de Don - Administration</title>
+        <title>{t('donationGoal.title')}</title>
         <meta name="description" content="Gérez la barre de progression des dons affichée sur la page d'accueil." />
       </Helmet>
       <motion.div
@@ -97,39 +99,39 @@ const AdminDonationGoalPage = () => {
         transition={{ duration: 0.5 }}
         className="space-y-6"
       >
-        <h1 className="text-3xl font-bold tracking-tight">Paramètres de l'Objectif de Don</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('donationGoal.heading')}</h1>
         
         <Card>
           <CardHeader>
-            <CardTitle>Barre de Progression des Dons</CardTitle>
+            <CardTitle>{t('donationGoal.cardTitle')}</CardTitle>
             <CardDescription>
-              Modifiez ici les informations affichées dans la section de l'objectif de don sur la page d'accueil.
+              {t('donationGoal.cardDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="title">Titre</Label>
+                <Label htmlFor="title">{t('donationGoal.form.title')}</Label>
                 <Input id="title" name="title" value={settings.title || ''} onChange={handleChange} />
               </div>
                <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">{t('donationGoal.form.description')}</Label>
                 <Textarea id="description" name="description" value={settings.description || ''} onChange={handleChange} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="goal_amount">Montant de l'objectif ($)</Label>
+                  <Label htmlFor="goal_amount">{t('donationGoal.form.goalAmount')}</Label>
                   <Input id="goal_amount" name="goal_amount" type="number" value={settings.goal_amount || ''} onChange={handleChange} />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="base_progress_percentage">Pourcentage de base (%)</Label>
+                  <Label htmlFor="base_progress_percentage">{t('donationGoal.form.basePercentage')}</Label>
                   <Input id="base_progress_percentage" name="base_progress_percentage" type="number" value={settings.base_progress_percentage || ''} onChange={handleChange} />
                 </div>
               </div>
               <div className="flex justify-end">
                 <Button type="submit" disabled={saving}>
                   {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                  Sauvegarder les changements
+                  {t('donationGoal.saveButton')}
                 </Button>
               </div>
             </form>

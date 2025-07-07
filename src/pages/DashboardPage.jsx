@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Navigate } from 'react-router-dom';
@@ -13,6 +12,8 @@ import InvoicesTab from '@/components/dashboard/InvoicesTab';
 import ImpactTab from '@/components/dashboard/ImpactTab';
 import ActivityTab from '@/components/dashboard/ActivityTab';
 import ReportInvoiceIssueDialog from '@/components/ReportInvoiceIssueDialog';
+import DonationPromptCard from '@/components/dashboard/DonationPromptCard';
+import { useTranslation } from 'react-i18next';
 
 const DashboardPage = () => {
   const { user, profile } = useAuth();
@@ -23,14 +24,15 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [isReportDialogOpen, setReportDialogOpen] = useState(false);
+  const { t } = useTranslation(['user', 'common']);
 
   useEffect(() => {
     const checkStripeSession = () => {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('session_id')) {
         toast({
-          title: 'Paiement réussi!',
-          description: 'Votre donation a été reçue. Merci pour votre soutien!',
+          title: t('dashboardPage.paymentSuccessTitle'),
+          description: t('dashboardPage.paymentSuccessDescription'),
           variant: 'default',
           className: 'bg-green-500 text-white',
         });
@@ -38,7 +40,7 @@ const DashboardPage = () => {
       }
     };
     checkStripeSession();
-  }, [toast]);
+  }, [toast, t]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,14 +82,14 @@ const DashboardPage = () => {
         }
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
-        toast({ variant: "destructive", title: "Erreur", description: "Impossible de charger vos données." });
+        toast({ variant: "destructive", title: t('common:errors.error'), description: t('dashboardPage.dataError') });
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [user, toast]);
+  }, [user, toast, t]);
 
   const handleReportIssue = (invoice) => {
     setSelectedInvoice(invoice);
@@ -99,15 +101,15 @@ const DashboardPage = () => {
   }
 
   const recentActivities = [
-    stats.lastDonation ? { type: 'donation', message: 'Vous avez fait un don', date: stats.lastDonation.created_at } : null,
-    { type: 'welcome', message: 'Bienvenue dans la communauté WIIBEC', date: user.created_at },
+    stats.lastDonation ? { type: 'donation', message: t('dashboardPage.recentActivities.donation'), date: stats.lastDonation.created_at } : null,
+    { type: 'welcome', message: t('dashboardPage.recentActivities.welcome'), date: user.created_at },
   ].filter(Boolean).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <>
       <Helmet>
-        <title>Dashboard - WIIBEC</title>
-        <meta name="description" content="Votre espace personnel WIIBEC. Suivez vos donations, consultez votre profil et découvrez votre impact sur l'éducation financière des jeunes." />
+        <title>{t('dashboardPage.helmetTitle')}</title>
+        <meta name="description" content={t('dashboardPage.helmetDescription')} />
       </Helmet>
 
       <div className="space-y-8">
@@ -118,14 +120,28 @@ const DashboardPage = () => {
           className="mb-8"
         >
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-            Bonjour, {profile?.first_name || 'cher membre'} ! 👋
+            {t('dashboardPage.greeting', { name: profile?.first_name || t('dashboardPage.dearMember') })}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground">
-            Merci de soutenir l'éducation financière des jeunes avec WIIBEC
+            {t('dashboardPage.thankYou')}
           </p>
         </motion.div>
 
-        <DashboardStats stats={stats} userCreatedAt={user.created_at} />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="lg:col-span-2">
+            <DashboardStats stats={stats} userCreatedAt={user.created_at} />
+          </div>
+          <div className="lg:col-span-1">
+             <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+             >
+              <DonationPromptCard />
+            </motion.div>
+          </div>
+        </div>
+
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -134,10 +150,10 @@ const DashboardPage = () => {
         >
           <Tabs defaultValue="donations" className="space-y-6">
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
-              <TabsTrigger value="donations" className="py-2">Mes Donations</TabsTrigger>
-              <TabsTrigger value="invoices" className="py-2">Mes Factures</TabsTrigger>
-              <TabsTrigger value="impact" className="py-2">Mon Impact</TabsTrigger>
-              <TabsTrigger value="activity" className="py-2">Activité Récente</TabsTrigger>
+              <TabsTrigger value="donations" className="py-2">{t('dashboardPage.tabs.donations')}</TabsTrigger>
+              <TabsTrigger value="invoices" className="py-2">{t('dashboardPage.tabs.invoices')}</TabsTrigger>
+              <TabsTrigger value="impact" className="py-2">{t('dashboardPage.tabs.impact')}</TabsTrigger>
+              <TabsTrigger value="activity" className="py-2">{t('dashboardPage.tabs.activity')}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="donations">

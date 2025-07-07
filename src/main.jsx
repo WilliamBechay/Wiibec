@@ -6,6 +6,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { SettingsProvider } from '@/contexts/SettingsContext';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/contexts/ThemeProvider';
+import '@/i18n';
 import '@/index.css';
 import '@fontsource/inter';
 import 'react-quill/dist/quill.snow.css';

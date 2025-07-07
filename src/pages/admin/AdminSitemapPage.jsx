@@ -7,12 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Loader2, Home, User, FileText, Shield, Users } from 'lucide-react';
 import ReactFlow, { MiniMap, Controls, Background, useNodesState, useEdgesState, Handle, Position } from 'reactflow';
+import { useTranslation } from 'react-i18next';
 
 const nodeTypes = {
   custom: CustomNode,
 };
 
 function CustomNode({ data }) {
+  const { t } = useTranslation('admin');
   const getIcon = () => {
     switch (data.type) {
       case 'home': return <Home className="h-5 w-5 mr-2" />;
@@ -33,7 +35,7 @@ function CustomNode({ data }) {
         <div className="flex-grow font-bold text-lg">{data.label}</div>
       </div>
       <div className={`text-sm ${data.is_enabled ? 'text-green-500' : 'text-red-500'}`}>
-        {data.is_enabled ? 'Activé' : 'Désactivé'}
+        {data.is_enabled ? t('sitemap.node.enabled') : t('sitemap.node.disabled')}
       </div>
       <Handle type="target" position={Position.Top} className="!bg-primary" />
       <Handle type="source" position={Position.Bottom} className="!bg-primary" />
@@ -48,6 +50,7 @@ const AdminSitemapPage = () => {
   const [loading, setLoading] = useState(true);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const { t } = useTranslation('admin');
 
   useEffect(() => {
     const fetchPages = async () => {
@@ -59,8 +62,8 @@ const AdminSitemapPage = () => {
 
       if (error) {
         toast({
-          title: 'Erreur',
-          description: 'Impossible de charger les pages pour le sitemap.',
+          title: t('common:errors.error'),
+          description: t('sitemap.loading'),
           variant: 'destructive',
         });
         console.error(error);
@@ -71,7 +74,7 @@ const AdminSitemapPage = () => {
     };
 
     fetchPages();
-  }, [toast]);
+  }, [toast, t]);
 
   useEffect(() => {
     if (pages.length > 0) {
@@ -83,7 +86,6 @@ const AdminSitemapPage = () => {
       const initialEdges = [];
       let yPos = 0;
       
-      // Home Node
       if (homeNode) {
         initialNodes.push({
           id: 'home',
@@ -94,7 +96,6 @@ const AdminSitemapPage = () => {
         yPos += 120;
       }
 
-      // Public Pages
       publicPages.forEach((page, index) => {
         initialNodes.push({
           id: page.page_key,
@@ -108,12 +109,11 @@ const AdminSitemapPage = () => {
         yPos += 120;
       });
 
-      // User Hub
       if (userPages.length > 0) {
         initialNodes.push({
             id: 'user-hub',
             type: 'custom',
-            data: { label: 'Espace Utilisateur', is_enabled: true, type: 'user-hub' },
+            data: { label: t('sitemap.node.userSpace'), is_enabled: true, type: 'user-hub' },
             position: { x: 0, y: yPos }
         });
         if (homeNode) {
@@ -136,7 +136,7 @@ const AdminSitemapPage = () => {
       setNodes(initialNodes);
       setEdges(initialEdges);
     }
-  }, [pages, setNodes, setEdges]);
+  }, [pages, setNodes, setEdges, t]);
   
   const generateSitemapXML = () => {
     const siteUrl = window.location.origin;
@@ -175,15 +175,15 @@ ${urls}
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     toast({
-      title: 'Téléchargement réussi',
-      description: 'Le fichier sitemap.xml a été généré.',
+      title: t('sitemap.downloadSuccess'),
+      description: t('sitemap.downloadSuccessDesc'),
     });
   };
 
   return (
     <>
       <Helmet>
-        <title>Sitemap Visuel - Administration</title>
+        <title>{t('sitemap.title')}</title>
         <meta name="description" content="Visualisez la structure du site de manière interactive." />
       </Helmet>
       <motion.div
@@ -193,18 +193,18 @@ ${urls}
         className="space-y-6"
       >
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold tracking-tight">Sitemap Visuel</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('sitemap.heading')}</h1>
           <Button onClick={handleDownloadSitemap} disabled={loading || pages.length === 0}>
             <Download className="mr-2 h-4 w-4" />
-            Télécharger sitemap.xml
+            {t('sitemap.downloadButton')}
           </Button>
         </div>
         
         <Card className="h-[70vh] w-full">
           <CardHeader>
-            <CardTitle>Arborescence du Site</CardTitle>
+            <CardTitle>{t('sitemap.cardTitle')}</CardTitle>
             <CardDescription>
-              Représentation visuelle et verticale de la structure des pages.
+              {t('sitemap.cardDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[calc(70vh-80px)]">

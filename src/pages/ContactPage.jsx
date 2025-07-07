@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -10,11 +9,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Textarea } from '@/components/ui/textarea';
+import { useTranslation } from 'react-i18next';
 
 const ContactPage = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const { t } = useTranslation('contact');
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -37,16 +38,16 @@ const ContactPage = () => {
       if (error) throw error;
       
       toast({
-        title: "✅ Message envoyé !",
-        description: "Merci de nous avoir contactés. Nous reviendrons vers vous bientôt.",
+        title: t('successToastTitle'),
+        description: t('successToastDescription'),
       });
       setFormData({ name: '', email: '', message: '' });
       
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "❌ Une erreur est survenue",
-        description: "Votre message n'a pas pu être envoyé. Veuillez réessayer.",
+        title: t('errorToastTitle'),
+        description: t('errorToastDescription'),
       });
     } finally {
       setLoading(false);
@@ -61,39 +62,39 @@ const ContactPage = () => {
       className="py-12"
     >
       <Helmet>
-        <title>Contact - WIIBEC</title>
-        <meta name="description" content="Contactez l'équipe de WIIBEC." />
+        <title>{t('helmetTitle')}</title>
+        <meta name="description" content={t('helmetDescription')} />
       </Helmet>
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground">Contactez-Nous</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-foreground">{t('title')}</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Une question, une proposition de partenariat ? Nous sommes à votre écoute.
+          {t('subtitle')}
         </p>
       </div>
 
       <div className="max-w-2xl mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle className="text-primary">Envoyer un message</CardTitle>
-            <CardDescription>Remplissez ce formulaire pour nous joindre.</CardDescription>
+            <CardTitle className="text-primary">{t('formTitle')}</CardTitle>
+            <CardDescription>{t('formDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="name">Nom</Label>
-                <Input type="text" id="name" required placeholder="Votre nom complet" value={formData.name} onChange={handleChange} />
+                <Label htmlFor="name">{t('nameLabel')}</Label>
+                <Input type="text" id="name" required placeholder={t('namePlaceholder')} value={formData.name} onChange={handleChange} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" required placeholder="votre.email@example.com" value={formData.email} onChange={handleChange} />
+                <Label htmlFor="email">{t('emailLabel')}</Label>
+                <Input type="email" id="email" required placeholder={t('emailPlaceholder')} value={formData.email} onChange={handleChange} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" rows="5" required placeholder="Votre message..." value={formData.message} onChange={handleChange} />
+                <Label htmlFor="message">{t('messageLabel')}</Label>
+                <Textarea id="message" rows="5" required placeholder={t('messagePlaceholder')} value={formData.message} onChange={handleChange} />
               </div>
               <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground font-bold" disabled={loading}>
                 {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                {loading ? "Envoi..." : "Envoyer le Message"}
+                {loading ? t('sendingButton') : t('sendButton')}
               </Button>
             </form>
           </CardContent>
