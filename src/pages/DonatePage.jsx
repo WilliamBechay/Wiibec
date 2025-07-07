@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Heart, Building, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import AuthPromptDialog from '@/components/AuthPromptDialog';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_live_51NIAKSLNtncrL2dnCRI93Zp7Tka287XGrcbWuJulL0FOCYOUA1DPGOQrzuHO3KQ7eGi6SpXiktnKPPd0AYWRGNQr00x8fkdEce');
 
@@ -24,6 +25,7 @@ const DonationForm = () => {
   const [companyName, setCompanyName] = useState('');
   const [companyAddress, setCompanyAddress] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
   const { t, i18n } = useTranslation(['user', 'common']);
 
   const finalAmount = customAmount ? parseFloat(customAmount) || 0 : amount;
@@ -43,11 +45,7 @@ const DonationForm = () => {
     setLoading(true);
 
     if (!user) {
-      toast({
-        variant: "destructive",
-        title: t('common:errors.error'),
-        description: t('donatePage.loginError'),
-      });
+      setShowAuthPrompt(true);
       setLoading(false);
       return;
     }
@@ -97,44 +95,47 @@ const DonationForm = () => {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-      <form onSubmit={handleSubmit}>
-        <Tabs value={donationType} onValueChange={setDonationType} className="w-full mb-8">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="personal"><Heart className="w-4 h-4 mr-2"/>{t('donatePage.personalDonation')}</TabsTrigger>
-            <TabsTrigger value="company"><Building className="w-4 h-4 mr-2"/>{t('donatePage.companyDonation')}</TabsTrigger>
-          </TabsList>
-          <TabsContent value="company" className="mt-4 space-y-4">
-            <div>
-              <Label htmlFor="companyName">{t('donatePage.companyName')}</Label>
-              <Input id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder={t('donatePage.companyNamePlaceholder')} required={donationType === 'company'} />
-            </div>
-            <div>
-              <Label htmlFor="companyAddress">{t('donatePage.companyAddress')}</Label>
-              <Input id="companyAddress" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} placeholder={t('donatePage.companyAddressPlaceholder')} required={donationType === 'company'} />
-            </div>
-          </TabsContent>
-          <TabsContent value="personal"></TabsContent>
-        </Tabs>
+    <>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <form onSubmit={handleSubmit}>
+          <Tabs value={donationType} onValueChange={setDonationType} className="w-full mb-8">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="personal"><Heart className="w-4 h-4 mr-2"/>{t('donatePage.personalDonation')}</TabsTrigger>
+              <TabsTrigger value="company"><Building className="w-4 h-4 mr-2"/>{t('donatePage.companyDonation')}</TabsTrigger>
+            </TabsList>
+            <TabsContent value="company" className="mt-4 space-y-4">
+              <div>
+                <Label htmlFor="companyName">{t('donatePage.companyName')}</Label>
+                <Input id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder={t('donatePage.companyNamePlaceholder')} required={donationType === 'company'} />
+              </div>
+              <div>
+                <Label htmlFor="companyAddress">{t('donatePage.companyAddress')}</Label>
+                <Input id="companyAddress" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} placeholder={t('donatePage.companyAddressPlaceholder')} required={donationType === 'company'} />
+              </div>
+            </TabsContent>
+            <TabsContent value="personal"></TabsContent>
+          </Tabs>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-          {[25, 50, 100, 250, 500].map(val => (
-            <Button key={val} type="button" variant={amount === val && !customAmount ? 'default' : 'outline'} onClick={() => handleAmountClick(val)}>${val}</Button>
-          ))}
-          <Input 
-            type="number"
-            placeholder={t('donatePage.otherAmount')}
-            value={customAmount}
-            onChange={handleCustomAmountChange}
-            className={`text-center ${customAmount ? 'border-primary' : ''} col-span-2 sm:col-span-1`}
-          />
-        </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+            {[25, 50, 100, 250, 500].map(val => (
+              <Button key={val} type="button" variant={amount === val && !customAmount ? 'default' : 'outline'} onClick={() => handleAmountClick(val)}>${val}</Button>
+            ))}
+            <Input 
+              type="number"
+              placeholder={t('donatePage.otherAmount')}
+              value={customAmount}
+              onChange={handleCustomAmountChange}
+              className={`text-center ${customAmount ? 'border-primary' : ''} col-span-2 sm:col-span-1`}
+            />
+          </div>
 
-        <Button type="submit" disabled={loading || finalAmount <= 0} className="w-full text-lg font-bold py-6">
-          {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('donatePage.processingButton')}</> : t('donatePage.submitButton', { amount: formatCurrency(finalAmount) })}
-        </Button>
-      </form>
-    </motion.div>
+          <Button type="submit" disabled={loading || finalAmount <= 0} className="w-full text-lg font-bold py-6">
+            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('donatePage.processingButton')}</> : t('donatePage.submitButton', { amount: formatCurrency(finalAmount) })}
+          </Button>
+        </form>
+      </motion.div>
+      <AuthPromptDialog open={showAuthPrompt} onOpenChange={setShowAuthPrompt} />
+    </>
   );
 };
 

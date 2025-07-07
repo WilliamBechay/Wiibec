@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Mail, Lock, User, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -18,8 +18,11 @@ const RegisterPage = () => {
   
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { t } = useTranslation('auth');
+
+  const from = location.state?.from?.pathname || "/login";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,7 +44,7 @@ const RegisterPage = () => {
 
     if (success) {
       toast({ title: t('registerPage.successToastTitle'), description: t('registerPage.successToastDescription') });
-      navigate('/login');
+      navigate(from, { replace: true });
     } else {
       toast({ title: t('registerPage.errorToastTitle'), description: error, variant: "destructive" });
     }
