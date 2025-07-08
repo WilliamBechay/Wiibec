@@ -16,6 +16,7 @@ import React, { useState, useEffect } from 'react';
     import LanguageSwitcher from '@/components/LanguageSwitcher';
     import { useTranslation } from 'react-i18next';
     import { cn } from '@/lib/utils';
+    import Logo from '@/components/icons/Logo';
 
     const Navbar = () => {
       const [isOpen, setIsOpen] = useState(false);
@@ -89,7 +90,7 @@ import React, { useState, useEffect } from 'react';
                 
                 <div className="flex justify-start items-center">
                   <Link to="/" className="flex items-center space-x-3">
-                    <span className="text-2xl font-bold text-foreground">WIIBEC</span>
+                    <Logo />
                   </Link>
                 </div>
 
@@ -212,7 +213,7 @@ import React, { useState, useEffect } from 'react';
                 >
                   <div className="flex justify-between items-center mb-8">
                     <Link to="/" className="flex items-center space-x-3" onClick={() => setIsOpen(false)}>
-                      <span className="text-2xl font-bold text-foreground">WIIBEC</span>
+                      <Logo />
                     </Link>
                     <Button
                       variant="ghost"
