@@ -61,6 +61,7 @@ const AdminInvoicesPage = () => {
 
   const formatCurrency = (amount) => new Intl.NumberFormat(i18n.language === 'fr' ? 'fr-CA' : 'en-US', { style: 'currency', currency: 'CAD' }).format(amount);
   const formatDate = (dateString) => new Date(dateString).toLocaleDateString(i18n.language === 'fr' ? 'fr-FR' : 'en-US');
+  const totalPages = Math.ceil(count / ITEMS_PER_PAGE);
 
   return (
     <>
@@ -148,14 +149,14 @@ const AdminInvoicesPage = () => {
                 </Table>
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-sm text-muted-foreground">
-                    Page {page} sur {Math.ceil(count / ITEMS_PER_PAGE)}
+                    {t('invoices.pagination.pageInfo', { page: page, totalPages: totalPages > 0 ? totalPages : 1})}
                   </span>
                   <div className="space-x-2">
                     <Button variant="outline" size="sm" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>
-                      Précédent
+                      {t('invoices.pagination.previous')}
                     </Button>
                     <Button variant="outline" size="sm" onClick={() => setPage(p => p + 1)} disabled={page * ITEMS_PER_PAGE >= count}>
-                      Suivant
+                      {t('invoices.pagination.next')}
                     </Button>
                   </div>
                 </div>

@@ -159,10 +159,10 @@ const AdminLogsPage = () => {
                     onClick={() => setPage(p => p - 1)}
                     disabled={page === 0}
                   >
-                    Précédent
+                    {t('logs.pagination.previous')}
                   </Button>
-                  <span className="text-sm">
-                    Page {page + 1} sur {totalPages}
+                  <span className="text-sm text-muted-foreground">
+                    {t('logs.pagination.pageInfo', { page: page + 1, totalPages: totalPages > 0 ? totalPages : 1})}
                   </span>
                   <Button
                     variant="outline"
@@ -170,7 +170,7 @@ const AdminLogsPage = () => {
                     onClick={() => setPage(p => p + 1)}
                     disabled={page + 1 >= totalPages}
                   >
-                    Suivant
+                    {t('logs.pagination.next')}
                   </Button>
                 </div>
               </>

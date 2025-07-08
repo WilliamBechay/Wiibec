@@ -235,7 +235,7 @@ const ProfilePage = () => {
                       type={showPassword ? "text" : "password"} 
                       value={passwordData.newPassword}                      onChange={handlePasswordChange}
                       required
-                      placeholder="••••••••"
+                      placeholder={t('profilePage.passwordPlaceholder')}
                       className="pr-10"
                     />
                     <Button type="button" variant="ghost" size="icon" className="absolute top-0 right-0 h-full px-3" onClick={() => setShowPassword(!showPassword)}>
@@ -253,7 +253,7 @@ const ProfilePage = () => {
                       value={passwordData.confirmPassword} 
                       onChange={handlePasswordChange}
                       required
-                      placeholder="••••••••"
+                      placeholder={t('profilePage.passwordPlaceholder')}
                       className="pr-10"
                     />
                     <Button type="button" variant="ghost" size="icon" className="absolute top-0 right-0 h-full px-3" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>

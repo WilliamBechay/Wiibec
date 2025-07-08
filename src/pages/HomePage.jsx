@@ -1,5 +1,4 @@
-
-    import React from 'react';
+import React from 'react';
     import { Helmet } from 'react-helmet';
     import { Link, Navigate } from 'react-router-dom';
     import { motion } from 'framer-motion';
@@ -73,7 +72,7 @@
               </Link>
               <Link to="/contact">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto transition-transform hover:scale-105">
-                  Contact <ArrowRight className="ml-2 h-5 w-5" />
+                  {t('contact')} <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <a href="https://mindovest.com" target="_blank" rel="noopener noreferrer">
@@ -117,4 +116,3 @@
     };
 
     export default HomePage;
-  

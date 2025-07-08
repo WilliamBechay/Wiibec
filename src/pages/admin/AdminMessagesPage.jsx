@@ -11,10 +11,8 @@ import { Loader2, RefreshCw, Mail, MessageSquare, FileText } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
   DialogClose
 } from "@/components/ui/dialog";
@@ -112,7 +110,7 @@ const AdminMessagesPage = () => {
                       <TableHead>{t('messages.table.status')}</TableHead>
                       <TableHead>{t('messages.table.from')}</TableHead>
                       <TableHead>{t('messages.table.subject')}</TableHead>
-                      <TableHead>{t('messages.table.relatedInvoice', 'Facture liée')}</TableHead>
+                      <TableHead>{t('messages.table.relatedInvoice')}</TableHead>
                       <TableHead>{t('messages.table.receivedOn')}</TableHead>
                       <TableHead className="text-right">{t('messages.table.action')}</TableHead>
                       </TableRow>
@@ -163,22 +161,22 @@ const AdminMessagesPage = () => {
           <DialogContent className="sm:max-w-[525px]">
             <DialogHeader>
               <DialogTitle className="flex items-center"><MessageSquare className="mr-2 h-5 w-5" /> {selectedMessage.subject || t('messages.dialog.title', { name: selectedMessage.name })}</DialogTitle>
-              <DialogDescription>
+              <div className="text-sm text-muted-foreground pt-2">
                 {t('messages.dialog.receivedOn', { date: formatDate(selectedMessage.created_at) })}
                 {selectedMessage.invoices && (
                   <div className="mt-2">
                     <Badge variant="secondary">
                        <FileText className="mr-2 h-4 w-4" />
-                      {t('messages.dialog.relatedInvoice', 'Facture liée:')} {selectedMessage.invoices.invoice_number}
+                      {t('messages.dialog.relatedInvoice')} {selectedMessage.invoices.invoice_number}
                     </Badge>
                   </div>
                 )}
-              </DialogDescription>
+              </div>
             </DialogHeader>
             <div className="py-4 space-y-4">
               <p className="text-sm text-muted-foreground whitespace-pre-wrap">{selectedMessage.message}</p>
               <div className="border-t pt-4">
-                <p className="text-sm font-medium">{t('messages.dialog.contactInfo', 'Contact Info')}</p>
+                <p className="text-sm font-medium">{t('messages.dialog.contactInfo')}</p>
                 <p className="text-sm text-muted-foreground">{selectedMessage.name} - {selectedMessage.email}</p>
               </div>
             </div>

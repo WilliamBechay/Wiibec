@@ -243,7 +243,7 @@ const AdminUsersPage = () => {
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
               <span className="text-sm text-muted-foreground">
-                Page {pagination.page + 1} sur {totalPages > 0 ? totalPages : 1}
+                {t('users.pagination.pageInfo', { page: pagination.page + 1, totalPages: totalPages > 0 ? totalPages : 1})}
               </span>
               <Button
                 variant="outline"
@@ -251,7 +251,7 @@ const AdminUsersPage = () => {
                 onClick={() => setPagination(p => ({...p, page: p.page - 1}))}
                 disabled={pagination.page === 0}
               >
-                Précédent
+                {t('users.pagination.previous')}
               </Button>
               <Button
                 variant="outline"
@@ -259,7 +259,7 @@ const AdminUsersPage = () => {
                 onClick={() => setPagination(p => ({...p, page: p.page + 1}))}
                 disabled={pagination.page >= totalPages - 1}
               >
-                Suivant
+                {t('users.pagination.next')}
               </Button>
             </div>
           </CardContent>
