@@ -1,0 +1,19 @@
+
+{
+  "helmetTitle": "Faire un don - WIIBEC",
+  "helmetDescription": "Soutenez notre mission d'éducation financière pour la jeunesse. Chaque contribution fait la différence.",
+  "title": "Soutenez Notre Mission",
+  "subtitle": "Votre générosité est le moteur de notre impact.",
+  "personalDonation": "Don Personnel",
+  "companyDonation": "Don d'Entreprise",
+  "companyName": "Nom de l'entreprise",
+  "companyNamePlaceholder": "Le nom de votre entreprise",
+  "companyAddress": "Adresse de l'entreprise",
+  "companyAddressPlaceholder": "Adresse pour le reçu fiscal",
+  "otherAmount": "Autre montant",
+  "submitButton": "Faire un don de {{amount}}",
+  "processingButton": "Traitement en cours...",
+  "loginError": "Veuillez vous connecter pour effectuer un don.",
+  "stripeError": "Erreur Stripe"
+}
+  

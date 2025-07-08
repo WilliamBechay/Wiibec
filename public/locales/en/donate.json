@@ -1,0 +1,19 @@
+
+{
+  "helmetTitle": "Make a Donation - WIIBEC",
+  "helmetDescription": "Support our mission of youth financial education. Every contribution makes a difference.",
+  "title": "Support Our Mission",
+  "subtitle": "Your generosity is the engine of our impact.",
+  "personalDonation": "Personal Donation",
+  "companyDonation": "Corporate Donation",
+  "companyName": "Company Name",
+  "companyNamePlaceholder": "Your company's name",
+  "companyAddress": "Company Address",
+  "companyAddressPlaceholder": "Address for tax receipt",
+  "otherAmount": "Other amount",
+  "submitButton": "Donate {{amount}}",
+  "processingButton": "Processing...",
+  "loginError": "Please log in to make a donation.",
+  "stripeError": "Stripe Error"
+}
+  
