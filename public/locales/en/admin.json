@@ -39,6 +39,11 @@
       "addError": "Could not create user: {{error}}",
       "deleteSuccess": "User has been deleted.",
       "deleteError": "Could not delete user: {{error}}"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {{page}} of {{totalPages}}"
     }
   },
   "settings": {
@@ -97,8 +102,8 @@
     "table": {
       "status": "Status",
       "from": "From",
-      "email": "Email",
-      "message": "Message",
+      "subject": "Subject",
+      "relatedInvoice": "Related Invoice",
       "receivedOn": "Received on",
       "action": "Action"
     },
@@ -107,7 +112,8 @@
     "dialog": {
       "title": "Message from {{name}}",
       "receivedOn": "Received on {{date}}",
-      "contact": "Contact:",
+      "relatedInvoice": "Related Invoice:",
+      "contactInfo": "Contact Info",
       "replyButton": "Reply by email",
       "closeButton": "Close"
     },
@@ -195,7 +201,12 @@
       "date": "Date"
     },
     "noLogs": "No logs found.",
-    "loadError": "Error loading logs"
+    "loadError": "Error loading logs",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {{page}} of {{totalPages}}"
+    }
   },
   "invoices": {
     "title": "Invoice Management - Administration",
@@ -212,7 +223,12 @@
       "action": "Action"
     },
     "noInvoices": "No invoices found.",
-    "loadError": "Could not load invoices. {{error}}"
+    "loadError": "Could not load invoices. {{error}}",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {{page}} of {{totalPages}}"
+    }
   },
   "invoiceIssues": {
     "title": "Invoice Issue Management - Admin",
@@ -282,5 +298,19 @@
       "anonymous": "Anonymous"
     },
     "loadError": "Error fetching data"
+  },
+  "navbar": {
+    "heading": "Admin",
+    "analytics": "Analytics",
+    "users": "Users",
+    "mailing": "Mailing",
+    "messages": "Messages",
+    "invoices": "Invoices",
+    "donationGoal": "Donation Goal",
+    "organization": "Organization",
+    "settings": "Settings",
+    "publicSite": "Public Site",
+    "logout": "Logout",
+    "openMenu": "Open menu"
   }
 }

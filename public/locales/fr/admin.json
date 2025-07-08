@@ -39,6 +39,11 @@
       "addError": "Impossible de créer l'utilisateur: {{error}}",
       "deleteSuccess": "L'utilisateur a été supprimé.",
       "deleteError": "Impossible de supprimer l'utilisateur: {{error}}"
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "pageInfo": "Page {{page}} sur {{totalPages}}"
     }
   },
   "settings": {
@@ -97,8 +102,8 @@
     "table": {
       "status": "Statut",
       "from": "De",
-      "email": "Email",
-      "message": "Message",
+      "subject": "Sujet",
+      "relatedInvoice": "Facture liée",
       "receivedOn": "Reçu le",
       "action": "Action"
     },
@@ -107,7 +112,8 @@
     "dialog": {
       "title": "Message de {{name}}",
       "receivedOn": "Reçu le {{date}}",
-      "contact": "Contact :",
+      "relatedInvoice": "Facture liée :",
+      "contactInfo": "Informations de contact",
       "replyButton": "Répondre par e-mail",
       "closeButton": "Fermer"
     },
@@ -195,7 +201,12 @@
       "date": "Date"
     },
     "noLogs": "Aucun log trouvé.",
-    "loadError": "Erreur de chargement des logs"
+    "loadError": "Erreur de chargement des logs",
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "pageInfo": "Page {{page}} sur {{totalPages}}"
+    }
   },
   "invoices": {
     "title": "Gestion des Factures - Administration",
@@ -212,7 +223,12 @@
       "action": "Action"
     },
     "noInvoices": "Aucune facture trouvée.",
-    "loadError": "Impossible de charger les factures. {{error}}"
+    "loadError": "Impossible de charger les factures. {{error}}",
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "pageInfo": "Page {{page}} sur {{totalPages}}"
+    }
   },
   "invoiceIssues": {
     "title": "Gestion des Problèmes de Factures - Admin",
@@ -282,5 +298,19 @@
       "anonymous": "Anonyme"
     },
     "loadError": "Erreur lors de la récupération des données"
+  },
+  "navbar": {
+    "heading": "Admin",
+    "analytics": "Analyses",
+    "users": "Utilisateurs",
+    "mailing": "Mailing",
+    "messages": "Messages",
+    "invoices": "Factures",
+    "donationGoal": "Objectif Don",
+    "organization": "Organisation",
+    "settings": "Paramètres",
+    "publicSite": "Site public",
+    "logout": "Déconnexion",
+    "openMenu": "Ouvrir le menu"
   }
 }
