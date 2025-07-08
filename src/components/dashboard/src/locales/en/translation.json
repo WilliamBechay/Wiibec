@@ -1,0 +1,521 @@
+{
+  "navbar": {
+    "home": "Home",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "adminPanel": "Admin Panel",
+    "donate": "Donate",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "languageSwitcher": {
+    "language": "Language",
+    "english": "English",
+    "french": "French"
+  },
+  "homePage": {
+    "title1": "Forging the Future through",
+    "title2": "Financial Education",
+    "subtitle": "Wiibec is a non-profit organization dedicated to the financial education of young people. We work directly in schools to teach the essential basics of money management.",
+    "makeDonation": "Make a Donation",
+    "learnMore": "Learn More",
+    "educationalPartner": "Educational Partner",
+    "whoAreYou": "Who are you?",
+    "whoAreYou_p": "Wiibec is a non-profit organization dedicated to the financial education of young people. We work directly in schools to teach the essential basics of money management.",
+    "whatIsYourMission": "What is your mission?",
+    "whatIsYourMission_p": "Our mission is simple: to educate young people financially so they know what to do after their studies. We want to give them the tools to make informed financial decisions from the start of their adult lives.",
+    "whyFinancialEducation": "Why is financial education so important?",
+    "whyFinancialEducation_p1": "Because young people often leave school with no concrete knowledge about:",
+    "why_li1": "How to manage a budget",
+    "why_li2": "What credit or savings are",
+    "why_li3": "How to avoid debt or scams",
+    "why_li4": "The first financial decisions to make",
+    "why_p2": "Good financial education means a more stable and autonomous life.",
+    "whoAreYourActionsFor": "Who are your actions for?",
+    "whoAreYourActionsFor_p": "Our actions are specifically aimed at young people, mainly in high school. We work in partnership with schools that wish to integrate our modules into their educational program.",
+    "whatDoYouOffer": "What do you offer concretely?",
+    "whatDoYouOffer_p": "We offer:",
+    "offer_li1": "Practical training directly in the classroom",
+    "offer_li2": "Fun and interactive workshops",
+    "offer_li3": "Interventions adapted to the age of the students",
+    "offer_li4": "Educational tools given to students",
+    "whoLeads": "Who leads the training?",
+    "whoLeads_p": "Our sessions are led by certified financial advisors who work in banking institutions. These volunteer professionals share their expertise in a neutral, accessible, and youth-friendly manner.",
+    "isItFree": "Is it free?",
+    "isItFree_p1": "Yes. All our interventions are completely free for schools and students.",
+    "isItFree_p2": "Wiibec is funded by:",
+    "funded_li1": "Donations from individuals",
+    "funded_li2": "Corporate partnerships",
+    "funded_li3": "Public or private grants",
+    "officialStatus": "Our Official Status",
+    "officialStatus_p": "WIIBEC is a non-profit organization registered with the Government of Canada. Here is our certificate of incorporation, a guarantee of our transparency and commitment.",
+    "certificateAlt": "WIIBEC Certificate of Incorporation"
+  },
+  "contactPage": {
+    "title": "Contact Us",
+    "subtitle": "A question, a partnership proposal? We are here to listen.",
+    "formTitle": "Send a message",
+    "formDescription": "Fill out this form to reach us.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your full name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Your message...",
+    "sendButton": "Send Message",
+    "sendingButton": "Sending...",
+    "successToastTitle": "✅ Message sent!",
+    "successToastDescription": "Thank you for contacting us. We will get back to you soon.",
+    "errorToastTitle": "❌ An error occurred",
+    "errorToastDescription": "Your message could not be sent. Please try again."
+  },
+  "loginPage": {
+    "title": "Login",
+    "description": "Access your personal space",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Login",
+    "loggingInButton": "Logging in...",
+    "noAccount": "Don't have an account yet?",
+    "register": "Register",
+    "successToastTitle": "Login successful!",
+    "successToastDescription": "Welcome to your WIIBEC space.",
+    "errorToastTitle": "Login Error"
+  },
+  "registerPage": {
+    "title": "Create an account",
+    "description": "Join our mission for financial education",
+    "firstNameLabel": "First Name",
+    "lastNameLabel": "Last Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "registerButton": "Register",
+    "registeringButton": "Registering...",
+    "haveAccount": "Already have an account?",
+    "login": "Login",
+    "passwordMismatch": "Passwords do not match.",
+    "successToastTitle": "Registration successful!",
+    "successToastDescription": "Welcome! Please confirm your email to continue.",
+    "errorToastTitle": "Registration Error"
+  },
+  "forgotPasswordPage": {
+    "title": "Forgot password?",
+    "description": "Enter your email to receive a reset link",
+    "emailLabel": "Email",
+    "sendLinkButton": "Send Link",
+    "sendingButton": "Sending...",
+    "backToLogin": "Back to login",
+    "checkEmailTitle": "Check your emails",
+    "checkEmailDescription": "A password reset email has been sent to {{email}}. Please follow the instructions to reset your password."
+  },
+  "resetPasswordPage": {
+    "title": "Reset Password",
+    "description": "Choose a new secure password",
+    "newPasswordLabel": "New Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "resetButton": "Reset Password",
+    "resettingButton": "Resetting...",
+    "passwordMismatch": "Passwords do not match.",
+    "passwordLengthError": "Password must be at least 6 characters long.",
+    "successToastTitle": "Success",
+    "successToastDescription": "Your password has been reset. You can now log in.",
+    "errorToastTitle": "Error"
+  },
+  "profilePage": {
+    "helmetTitle": "My Profile - WIIBEC",
+    "helmetDescription": "Manage your WIIBEC profile. Edit your personal information and password.",
+    "title": "My Profile",
+    "subtitle": "Manage your personal and security information",
+    "memberSince": "Member since {{date}}",
+    "personalInfo": "Personal Information",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "notProvided": "Not provided",
+    "security": "Security",
+    "changePassword": "Change your password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "passwordLengthError": "Password must be at least 6 characters long.",
+    "passwordMismatch": "Passwords do not match.",
+    "passwordUpdated": "Password updated",
+    "passwordUpdatedSuccess": "Your password has been changed successfully.",
+    "error": "Error",
+    "changePasswordButton": "Change Password",
+    "loadingError": "Could not load profile. Please try again."
+  },
+  "dashboardPage": {
+    "helmetTitle": "Dashboard - WIIBEC",
+    "helmetDescription": "Your WIIBEC personal space. Track your donations, view your profile, and see your impact on youth financial education.",
+    "greeting": "Hello, {{name}}! 👋",
+    "thankYou": "Thank you for supporting youth financial education with WIIBEC",
+    "dearMember": "dear member",
+    "tabs": {
+      "donations": "My Donations",
+      "invoices": "My Invoices",
+      "impact": "My Impact",
+      "activity": "Recent Activity"
+    },
+    "paymentSuccessTitle": "Payment successful!",
+    "paymentSuccessDescription": "Your donation has been received. Thank you for your support!",
+    "dataError": "Could not load your data.",
+    "recentActivities": {
+      "donation": "You made a donation",
+      "welcome": "Welcome to the WIIBEC community"
+    }
+  },
+  "donationPromptCard": {
+    "title": "Support our cause",
+    "description": "Every donation, big or small, helps us continue our mission of financial education for young people.",
+    "button": "Donate now"
+  },
+  "donatePage": {
+    "helmetTitle": "Make a donation - WIIBEC",
+    "helmetDescription": "Support our mission of financial education for young people. Every donation counts.",
+    "title": "Support our mission",
+    "subtitle": "Your generosity drives our impact.",
+    "personalDonation": "Personal Donation",
+    "companyDonation": "Company Donation",
+    "companyName": "Company Name",
+    "companyNamePlaceholder": "Your company name",
+    "companyAddress": "Company Address",
+    "companyAddressPlaceholder": "Address for the tax receipt",
+    "otherAmount": "Other",
+    "submitButton": "Donate {{amount}}",
+    "processingButton": "Processing...",
+    "loginError": "Please log in to make a donation.",
+    "stripeError": "Stripe Error"
+  },
+  "paymentSuccessPage": {
+    "helmetTitle": "Payment Status - WIIBEC",
+    "helmetDescription": "Status page for your donation.",
+    "verifying": "Verifying your payment...",
+    "verifyingDesc": "Please wait, we are confirming your donation and generating your receipt.",
+    "successTitle": "Thank you for your support!",
+    "successDesc": "Your donation of {{amount}} has been successfully processed.",
+    "receiptInfo": "A detailed receipt has been generated and is now available in your dashboard.",
+    "goToDashboard": "Go to dashboard",
+    "backToHome": "Back to home",
+    "errorTitle": "An error occurred",
+    "errorDesc": "We could not verify your payment. Please contact support if the problem persists.",
+    "retryButton": "Try donating again",
+    "missingSessionId": "Missing session ID.",
+    "verificationError": "Verification Error",
+    "paymentVerified": "Payment verified!",
+    "paymentVerifiedDesc": "Your donation has been successfully recorded."
+  },
+  "pageDisabled": {
+    "title": "Page Unavailable - WIIBEC",
+    "heading": "Page temporarily unavailable",
+    "description": "This page is currently disabled by an administrator. Please try again later or contact support if you believe this is an error.",
+    "backToHome": "Back to Home"
+  },
+  "admin": {
+    "layout": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "messages": "Messages",
+      "mailing": "Mailing",
+      "invoices": "Invoices",
+      "invoiceIssues": "Invoice Issues",
+      "analytics": "Analytics",
+      "donationGoal": "Donation Goal",
+      "sitemap": "Sitemap",
+      "logs": "Logs",
+      "settings": "Settings",
+      "organization": "Organization"
+    },
+    "users": {
+      "title": "User Management",
+      "heading": "User Management",
+      "addUser": "Add User",
+      "listTitle": "User List",
+      "listDescription": "Total of {{total}} users. View, edit, or delete profiles.",
+      "searchPlaceholder": "Search by name, last name, or email...",
+      "table": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "registeredDate": "Registration Date",
+        "actions": "Actions"
+      },
+      "loading": "Loading users...",
+      "noUsers": "No users found.",
+      "roleAdmin": "Admin",
+      "roleUser": "User",
+      "actionsMenu": {
+        "open": "Open menu",
+        "title": "Actions",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "deleteDialog": {
+        "title": "Are you absolutely sure?",
+        "description": "This action is irreversible. The account of {{name}} ({{email}}) and all associated data will be permanently deleted.",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      },
+      "toast": {
+        "configError": "Configuration error",
+        "configErrorDesc": "The relationship between users and profiles could not be found. Please contact support.",
+        "loadError": "Could not load users: {{error}}",
+        "updateSuccess": "User profile updated.",
+        "updateError": "Could not update profile: {{error}}",
+        "addSuccess": "New user created.",
+        "addError": "Could not create user: {{error}}",
+        "deleteSuccess": "User has been deleted.",
+        "deleteError": "Could not delete user: {{error}}"
+      }
+    },
+    "settings": {
+      "title": "Settings - Administration",
+      "heading": "Settings",
+      "pageVisibility": "Page Visibility",
+      "pageVisibilityDesc": "Enable or disable public access to different pages of the site. Administrators will always have access.",
+      "loading": "Loading settings...",
+      "updateSuccess": "Setting updated",
+      "updateSuccessDesc": "The page \"{{pageName}}\" has been {{status}}.",
+      "enabled": "enabled",
+      "disabled": "disabled",
+      "updateError": "Could not update setting: {{error}}"
+    },
+    "sitemap": {
+      "title": "Visual Sitemap - Administration",
+      "heading": "Visual Sitemap",
+      "downloadButton": "Download sitemap.xml",
+      "cardTitle": "Site Tree",
+      "cardDesc": "Visual and vertical representation of the page structure.",
+      "loading": "Loading pages for sitemap...",
+      "downloadSuccess": "Download successful",
+      "downloadSuccessDesc": "The sitemap.xml file has been generated.",
+      "node": {
+        "userSpace": "User Area",
+        "enabled": "Enabled",
+        "disabled": "Disabled"
+      }
+    },
+    "organization": {
+      "title": "NPO Info - Administration",
+      "heading": "Organization Information",
+      "cardTitle": "NPO Details",
+      "cardDesc": "This information will appear on the tax receipts generated for donors.",
+      "form": {
+        "orgName": "Organization Name",
+        "regNumber": "Registration Number",
+        "address": "Address",
+        "city": "City",
+        "province": "Province",
+        "postalCode": "Postal Code",
+        "contactEmail": "Contact Email",
+        "website": "Website"
+      },
+      "saveButton": "Save Changes",
+      "loadError": "Could not load organization information.",
+      "saveError": "Save failed. {{error}}",
+      "saveSuccess": "Organization information has been updated."
+    },
+    "messages": {
+      "title": "Messages - Administration",
+      "heading": "Inbox",
+      "cardTitle": "Contact Messages",
+      "cardDesc": "Messages received via the contact form.",
+      "loading": "Loading messages...",
+      "table": {
+        "status": "Status",
+        "from": "From",
+        "email": "Email",
+        "message": "Message",
+        "receivedOn": "Received on",
+        "action": "Action"
+      },
+      "noMessages": "No messages at the moment.",
+      "viewButton": "View",
+      "dialog": {
+        "title": "Message from {{name}}",
+        "receivedOn": "Received on {{date}}",
+        "contact": "Contact:",
+        "replyButton": "Reply by email",
+        "closeButton": "Close"
+      },
+      "status": {
+        "new": "New",
+        "read": "Read"
+      },
+      "loadError": "Could not load messages."
+    },
+    "mailing": {
+      "title": "Mailing - Administration",
+      "heading": "Mailing",
+      "configRequired": "Configuration required",
+      "configDialog": {
+        "title": "Email sending service configuration",
+        "p1": "To send emails, this system uses a third-party service (e.g., Resend, SendGrid, Mailgun). You must configure an API key for this to work.",
+        "li1": "Sign up for a service like Resend.com.",
+        "li2": "Generate an API key.",
+        "li3": "Contact support to add this key to your Supabase secrets under the name `RESEND_API_KEY`.",
+        "li4": "Also configure `FROM_EMAIL` with the sending email address you have validated.",
+        "p2": "Without this configuration, emails will not actually be sent.",
+        "close": "Understood"
+      },
+      "tabs": {
+        "compose": "Compose",
+        "campaigns": "Campaigns"
+      },
+      "compose": {
+        "title": "New campaign",
+        "description": "Write and send an email to a group of users.",
+        "subject": "Subject",
+        "subjectPlaceholder": "The subject of your email",
+        "recipients": "Recipients",
+        "recipientsPlaceholder": "Select a group",
+        "groups": {
+          "all": "All users",
+          "donors": "Donors",
+          "admins": "Administrators"
+        },
+        "body": "Email Body",
+        "sendButton": "Send campaign",
+        "sendingButton": "Sending..."
+      },
+      "campaigns": {
+        "title": "Campaign History",
+        "description": "List of all sent or draft campaigns.",
+        "loading": "Loading campaigns...",
+        "table": {
+          "subject": "Subject",
+          "recipients": "Recipients",
+          "sentDate": "Sent Date",
+          "status": "Status"
+        },
+        "noCampaigns": "No campaigns at the moment.",
+        "statusLabels": {
+          "sent": "Sent",
+          "draft": "Draft",
+          "sending": "Sending...",
+          "failed": "Failed"
+        }
+      },
+      "toast": {
+        "loadError": "Could not load campaigns.",
+        "validationError": "Please fill in all fields.",
+        "sendSuccess": "Campaign sent successfully.",
+        "sendError": "Sending failed: {{error}}"
+      }
+    },
+    "logs": {
+      "title": "Logs - Administration",
+      "heading": "Activity Logs",
+      "filters": "Filters",
+      "searchPlaceholder": "Search in messages...",
+      "levelPlaceholder": "Log level",
+      "levels": {
+        "all": "All levels",
+        "info": "Info",
+        "warning": "Warning",
+        "error": "Error"
+      },
+      "loading": "Loading logs...",
+      "table": {
+        "level": "Level",
+        "message": "Message",
+        "date": "Date"
+      },
+      "noLogs": "No logs found.",
+      "loadError": "Error loading logs"
+    },
+    "invoices": {
+      "title": "Invoice Management - Administration",
+      "heading": "Invoice Management",
+      "cardTitle": "Donation Invoices",
+      "cardDesc": "Search and view tax receipts generated for each donation.",
+      "searchPlaceholder": "Search by invoice # or email...",
+      "loading": "Loading invoices...",
+      "table": {
+        "invoiceNo": "Invoice #",
+        "date": "Date",
+        "donor": "Donor",
+        "amount": "Amount",
+        "action": "Action"
+      },
+      "noInvoices": "No invoices found.",
+      "loadError": "Could not load invoices. {{error}}"
+    },
+    "invoiceIssues": {
+      "title": "Invoice Issue Management - Admin",
+      "cardTitle": "Reported Invoice Issues",
+      "cardDesc": "View and manage invoice issues submitted by donors.",
+      "loading": "Loading invoice issues...",
+      "noIssues": "No issues reported",
+      "noIssuesDesc": "The inbox is empty for now.",
+      "table": {
+        "invoiceNo": "Invoice #",
+        "user": "User",
+        "description": "Description",
+        "createdDate": "Creation Date",
+        "status": "Status"
+      },
+      "status": {
+        "open": "Open",
+        "inProgress": "In Progress",
+        "resolved": "Resolved"
+      },
+      "loadError": "Could not load invoice issues.",
+      "updateSuccess": "Status updated",
+      "updateSuccessDesc": "The issue status has been changed to \"{{status}}\".",
+      "updateError": "Could not update status."
+    },
+    "donationGoal": {
+      "title": "Donation Goal - Administration",
+      "heading": "Donation Goal Settings",
+      "cardTitle": "Donation Progress Bar",
+      "cardDesc": "Edit the information displayed in the donation goal section on the homepage here.",
+      "form": {
+        "title": "Title",
+        "description": "Description",
+        "goalAmount": "Goal Amount ($)",
+        "basePercentage": "Base Percentage (%)"
+      },
+      "saveButton": "Save Changes",
+      "loadError": "Could not load donation goal settings.",
+      "saveError": "Save failed. {{error}}",
+      "saveSuccess": "Donation goal settings have been updated."
+    },
+    "analytics": {
+      "title": "Analytics - Administration",
+      "heading": "Analytics",
+      "loading": "Loading data...",
+      "cards": {
+        "totalRevenue": "Total Revenue",
+        "totalRevenueDesc": "Total successful donations",
+        "totalUsers": "Total Users",
+        "totalUsersDesc": "Total number of registered users",
+        "avgDonation": "Average Donation",
+        "avgDonationDesc": "Based on {{count}} donations",
+        "totalDonations": "Total Donations",
+        "totalDonationsDesc": "Number of transactions"
+      },
+      "charts": {
+        "donationsPerDay": "Donations per day",
+        "donationsTotal": "Total donations",
+        "userGrowth": "User Growth",
+        "cumulativeUsers": "Total cumulative users"
+      },
+      "recentDonations": {
+        "title": "Recent Donations",
+        "donor": "Donor",
+        "amount": "Amount",
+        "date": "Date",
+        "anonymous": "Anonymous"
+      },
+      "loadError": "Error fetching data"
+    }
+  }
+}
