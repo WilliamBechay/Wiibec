@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
@@ -26,7 +27,7 @@ const DonationForm = () => {
   const [companyAddress, setCompanyAddress] = useState('');
   const [loading, setLoading] = useState(false);
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
-  const { t, i18n } = useTranslation(['user', 'common']);
+  const { t, i18n } = useTranslation(['donate', 'common']);
 
   const finalAmount = customAmount ? parseFloat(customAmount) || 0 : amount;
 
@@ -74,7 +75,7 @@ const DonationForm = () => {
       if (stripeError) {
         toast({
           variant: "destructive",
-          title: t('donatePage.stripeError'),
+          title: t('stripeError'),
           description: stripeError.message,
         });
       }
@@ -100,17 +101,17 @@ const DonationForm = () => {
         <form onSubmit={handleSubmit}>
           <Tabs value={donationType} onValueChange={setDonationType} className="w-full mb-8">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="personal"><Heart className="w-4 h-4 mr-2"/>{t('donatePage.personalDonation')}</TabsTrigger>
-              <TabsTrigger value="company"><Building className="w-4 h-4 mr-2"/>{t('donatePage.companyDonation')}</TabsTrigger>
+              <TabsTrigger value="personal"><Heart className="w-4 h-4 mr-2"/>{t('personalDonation')}</TabsTrigger>
+              <TabsTrigger value="company"><Building className="w-4 h-4 mr-2"/>{t('companyDonation')}</TabsTrigger>
             </TabsList>
             <TabsContent value="company" className="mt-4 space-y-4">
               <div>
-                <Label htmlFor="companyName">{t('donatePage.companyName')}</Label>
-                <Input id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder={t('donatePage.companyNamePlaceholder')} required={donationType === 'company'} />
+                <Label htmlFor="companyName">{t('companyName')}</Label>
+                <Input id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder={t('companyNamePlaceholder')} required={donationType === 'company'} />
               </div>
               <div>
-                <Label htmlFor="companyAddress">{t('donatePage.companyAddress')}</Label>
-                <Input id="companyAddress" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} placeholder={t('donatePage.companyAddressPlaceholder')} required={donationType === 'company'} />
+                <Label htmlFor="companyAddress">{t('companyAddress')}</Label>
+                <Input id="companyAddress" value={companyAddress} onChange={(e) => setCompanyAddress(e.target.value)} placeholder={t('companyAddressPlaceholder')} required={donationType === 'company'} />
               </div>
             </TabsContent>
             <TabsContent value="personal"></TabsContent>
@@ -122,7 +123,7 @@ const DonationForm = () => {
             ))}
             <Input 
               type="number"
-              placeholder={t('donatePage.otherAmount')}
+              placeholder={t('otherAmount')}
               value={customAmount}
               onChange={handleCustomAmountChange}
               className={`text-center ${customAmount ? 'border-primary' : ''} col-span-2 sm:col-span-1`}
@@ -130,7 +131,7 @@ const DonationForm = () => {
           </div>
 
           <Button type="submit" disabled={loading || finalAmount <= 0} className="w-full text-lg font-bold py-6">
-            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('donatePage.processingButton')}</> : t('donatePage.submitButton', { amount: formatCurrency(finalAmount) })}
+            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('processingButton')}</> : t('submitButton', { amount: formatCurrency(finalAmount) })}
           </Button>
         </form>
       </motion.div>
@@ -140,19 +141,19 @@ const DonationForm = () => {
 };
 
 const DonatePage = () => {
-  const { t } = useTranslation('user');
+  const { t } = useTranslation('donate');
   return (
     <div className="max-w-2xl mx-auto px-4">
       <Helmet>
-        <title>{t('donatePage.helmetTitle')}</title>
-        <meta name="description" content={t('donatePage.helmetDescription')} />
+        <title>{t('helmetTitle')}</title>
+        <meta name="description" content={t('helmetDescription')} />
       </Helmet>
 
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Card className="overflow-hidden">
           <CardHeader className="bg-muted/30 p-6 sm:p-8 text-center">
-            <CardTitle className="text-3xl sm:text-4xl font-extrabold text-primary">{t('donatePage.title')}</CardTitle>
-            <CardDescription className="text-lg sm:text-xl text-muted-foreground mt-2">{t('donatePage.subtitle')}</CardDescription>
+            <CardTitle className="text-3xl sm:text-4xl font-extrabold text-primary">{t('title')}</CardTitle>
+            <CardDescription className="text-lg sm:text-xl text-muted-foreground mt-2">{t('subtitle')}</CardDescription>
           </CardHeader>
           <CardContent className="p-6 sm:p-8">
             <DonationForm />
@@ -164,3 +165,4 @@ const DonatePage = () => {
 };
 
 export default DonatePage;
+  

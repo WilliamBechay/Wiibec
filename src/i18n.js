@@ -9,15 +9,29 @@ i18n
   .use(initReactI18next)
   .init({
     supportedLngs: ['en', 'fr'],
-    fallbackLng: 'fr',
+    fallbackLng: 'en',
     debug: false,
-    ns: ['common', 'home', 'about', 'partners', 'contact', 'auth', 'user', 'admin', 'footer'],
+    ns: [
+      'common', 
+      'home', 
+      'contact', 
+      'auth', 
+      'user', 
+      'admin', 
+      'about', 
+      'partners',
+      'donate'
+    ],
     defaultNS: 'common',
-    interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+    detection: {
+      order: ['queryString', 'cookie', 'localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
+      caches: ['cookie'],
     },
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
+    react: {
+      useSuspense: true,
     },
   });
 
