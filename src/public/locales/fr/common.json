@@ -1,0 +1,45 @@
+{
+  "navbar": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "partners": "Partenaires",
+    "contact": "Contact",
+    "dashboard": "Tableau de bord",
+    "profile": "Profil",
+    "adminPanel": "Admin panel",
+    "donate": "Faire un don",
+    "login": "Connexion",
+    "register": "Inscription",
+    "logout": "Déconnexion"
+  },
+  "footer": {
+    "description": "WIIBEC est une organisation à but non lucratif dédiée à l'éducation financière des jeunes.",
+    "contactUs": "Contactez-nous",
+    "email": "contact@wiibec.org",
+    "quickLinks": "Liens Rapides",
+    "home": "Accueil",
+    "about": "À Propos",
+    "contact": "Contact",
+    "donate": "Faire un don",
+    "legal": "Légal",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfService": "Conditions d'utilisation",
+    "copyright": "© {{year}} WIIBEC. Tous droits réservés."
+  },
+  "languageSwitcher": {
+    "changeLanguage": "Changer de langue",
+    "english": "Anglais",
+    "french": "Français"
+  },
+  "pageDisabled": {
+    "title": "Page Indisponible - WIIBEC",
+    "heading": "Page temporairement indisponible",
+    "description": "Cette page est actuellement désactivée par un administrateur. Veuillez réessayer plus tard ou contacter le support si vous pensez qu'il s'agit d'une erreur.",
+    "backToHome": "Retour à l'accueil"
+  },
+  "errors": {
+    "error": "Erreur",
+    "loading": "Chargement...",
+    "notProvided": "Non renseigné"
+  }
+}

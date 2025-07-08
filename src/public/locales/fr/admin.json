@@ -1,0 +1,316 @@
+{
+  "users": {
+    "title": "Gestion des Utilisateurs - Administration",
+    "heading": "Gestion des Utilisateurs",
+    "addUser": "Ajouter un utilisateur",
+    "listTitle": "Liste des utilisateurs",
+    "listDescription": "Total de {{total}} utilisateurs. Consultez, modifiez ou supprimez les profils.",
+    "searchPlaceholder": "Rechercher par nom, prénom ou email...",
+    "table": {
+      "name": "Nom",
+      "email": "Email",
+      "role": "Rôle",
+      "registeredDate": "Date d'inscription",
+      "actions": "Actions"
+    },
+    "loading": "Chargement des utilisateurs...",
+    "noUsers": "Aucun utilisateur trouvé.",
+    "roleAdmin": "Admin",
+    "roleUser": "Utilisateur",
+    "actionsMenu": {
+      "open": "Ouvrir le menu",
+      "title": "Actions",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "deleteDialog": {
+      "title": "Êtes-vous absolument sûr ?",
+      "description": "Cette action est irréversible. Le compte de {{name}} ({{email}}) et toutes ses données associées seront définitivement supprimés.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    },
+    "toast": {
+      "configError": "Erreur de configuration",
+      "configErrorDesc": "La relation entre utilisateurs et profils est introuvable. Veuillez contacter le support.",
+      "loadError": "Impossible de charger les utilisateurs: {{error}}",
+      "updateSuccess": "Profil utilisateur mis à jour.",
+      "updateError": "Impossible de mettre à jour le profil: {{error}}",
+      "addSuccess": "Nouvel utilisateur créé.",
+      "addError": "Impossible de créer l'utilisateur: {{error}}",
+      "deleteSuccess": "L'utilisateur a été supprimé.",
+      "deleteError": "Impossible de supprimer l'utilisateur: {{error}}"
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "pageInfo": "Page {{page}} sur {{totalPages}}"
+    }
+  },
+  "settings": {
+    "title": "Paramètres - Administration",
+    "heading": "Paramètres",
+    "pageVisibility": "Visibilité des pages",
+    "pageVisibilityDesc": "Activez ou désactivez l'accès public aux différentes pages du site. Les administrateurs y auront toujours accès.",
+    "loading": "Chargement des paramètres...",
+    "updateSuccess": "Paramètre mis à jour",
+    "updateSuccessDesc": "La page \"{{pageName}}\" a été {{status}}.",
+    "enabled": "activée",
+    "disabled": "désactivée",
+    "updateError": "Impossible de mettre à jour le paramètre: {{error}}"
+  },
+  "sitemap": {
+    "title": "Sitemap Visuel - Administration",
+    "heading": "Sitemap Visuel",
+    "downloadButton": "Télécharger sitemap.xml",
+    "cardTitle": "Arborescence du Site",
+    "cardDesc": "Représentation visuelle et verticale de la structure des pages.",
+    "loading": "Chargement des pages pour le sitemap...",
+    "downloadSuccess": "Téléchargement réussi",
+    "downloadSuccessDesc": "Le fichier sitemap.xml a été généré.",
+    "node": {
+      "userSpace": "Espace Utilisateur",
+      "enabled": "Activé",
+      "disabled": "Désactivé"
+    }
+  },
+  "organization": {
+    "title": "Infos OBNL - Administration",
+    "heading": "Informations de l'Organisation",
+    "cardTitle": "Détails de l'OBNL",
+    "cardDesc": "Ces informations apparaîtront sur les reçus fiscaux générés pour les donateurs.",
+    "form": {
+      "orgName": "Nom de l'organisation",
+      "regNumber": "Numéro d'enregistrement",
+      "address": "Adresse",
+      "city": "Ville",
+      "province": "Province",
+      "postalCode": "Code Postal",
+      "contactEmail": "Email de contact",
+      "website": "Site Web"
+    },
+    "saveButton": "Sauvegarder les changements",
+    "loadError": "Impossible de charger les informations de l'organisation.",
+    "saveError": "La sauvegarde a échoué. {{error}}",
+    "saveSuccess": "Les informations de l'organisation ont été mises à jour."
+  },
+  "messages": {
+    "title": "Messages - Administration",
+    "heading": "Boîte de réception",
+    "cardTitle": "Messages de contact",
+    "cardDesc": "Messages reçus via le formulaire de contact.",
+    "loading": "Chargement des messages...",
+    "table": {
+      "status": "Statut",
+      "from": "De",
+      "subject": "Sujet",
+      "relatedInvoice": "Facture liée",
+      "receivedOn": "Reçu le",
+      "action": "Action"
+    },
+    "noMessages": "Aucun message pour le moment.",
+    "viewButton": "Voir",
+    "dialog": {
+      "title": "Message de {{name}}",
+      "receivedOn": "Reçu le {{date}}",
+      "relatedInvoice": "Facture liée :",
+      "contactInfo": "Informations de contact",
+      "replyButton": "Répondre par e-mail",
+      "closeButton": "Fermer"
+    },
+    "status": {
+      "new": "Nouveau",
+      "read": "Lu"
+    },
+    "loadError": "Impossible de charger les messages."
+  },
+  "mailing": {
+    "title": "Mailing - Administration",
+    "heading": "Mailing",
+    "configRequired": "Configuration requise",
+    "configDialog": {
+      "title": "Configuration du service d'envoi d'e-mails",
+      "p1": "Pour envoyer des e-mails, ce système utilise un service tiers (par exemple, Resend, SendGrid, Mailgun). Vous devez configurer une clé API pour que cela fonctionne.",
+      "li1": "Inscrivez-vous sur un service comme Resend.com.",
+      "li2": "Générez une clé API.",
+      "li3": "Contactez le support pour ajouter cette clé à vos secrets Supabase sous le nom `RESEND_API_KEY`.",
+      "li4": "Configurez également `FROM_EMAIL` avec l'adresse e-mail d'expédition que vous avez validée.",
+      "p2": "Sans cette configuration, les e-mails ne seront pas réellement envoyés.",
+      "close": "Compris"
+    },
+    "tabs": {
+      "compose": "Composer",
+      "campaigns": "Campagnes"
+    },
+    "compose": {
+      "title": "Nouvelle campagne",
+      "description": "Rédigez et envoyez un e-mail à un groupe d'utilisateurs.",
+      "subject": "Sujet",
+      "subjectPlaceholder": "Le sujet de votre e-mail",
+      "recipients": "Destinataires",
+      "recipientsPlaceholder": "Sélectionnez un groupe",
+      "groups": {
+        "all": "Tous les utilisateurs",
+        "donors": "Donateurs",
+        "admins": "Administrateurs"
+      },
+      "body": "Corps de l'e-mail",
+      "sendButton": "Envoyer la campagne",
+      "sendingButton": "Envoi en cours..."
+    },
+    "campaigns": {
+      "title": "Historique des campagnes",
+      "description": "Liste de toutes les campagnes envoyées ou en brouillon.",
+      "loading": "Chargement des campagnes...",
+      "table": {
+        "subject": "Sujet",
+        "recipients": "Destinataires",
+        "sentDate": "Date d'envoi",
+        "status": "Statut"
+      },
+      "noCampaigns": "Aucune campagne pour le moment.",
+      "statusLabels": {
+        "sent": "Envoyé",
+        "draft": "Brouillon",
+        "sending": "Envoi...",
+        "failed": "Échoué"
+      }
+    },
+    "toast": {
+      "loadError": "Impossible de charger les campagnes.",
+      "validationError": "Veuillez remplir tous les champs.",
+      "sendSuccess": "Campagne envoyée avec succès.",
+      "sendError": "L'envoi a échoué: {{error}}"
+    }
+  },
+  "logs": {
+    "title": "Logs - Administration",
+    "heading": "Journaux d'activité",
+    "filters": "Filtres",
+    "searchPlaceholder": "Rechercher dans les messages...",
+    "levelPlaceholder": "Niveau de log",
+    "levels": {
+      "all": "Tous les niveaux",
+      "info": "Info",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "loading": "Chargement des logs...",
+    "table": {
+      "level": "Niveau",
+      "message": "Message",
+      "date": "Date"
+    },
+    "noLogs": "Aucun log trouvé.",
+    "loadError": "Erreur de chargement des logs",
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "pageInfo": "Page {{page}} sur {{totalPages}}"
+    }
+  },
+  "invoices": {
+    "title": "Gestion des Factures - Administration",
+    "heading": "Gestion des Factures",
+    "cardTitle": "Factures des Dons",
+    "cardDesc": "Recherchez et consultez les reçus fiscaux générés pour chaque don.",
+    "searchPlaceholder": "Rechercher par N° de facture ou email...",
+    "loading": "Chargement des factures...",
+    "table": {
+      "invoiceNo": "N° Facture",
+      "date": "Date",
+      "donor": "Donateur",
+      "amount": "Montant",
+      "action": "Action"
+    },
+    "noInvoices": "Aucune facture trouvée.",
+    "loadError": "Impossible de charger les factures. {{error}}",
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "pageInfo": "Page {{page}} sur {{totalPages}}"
+    }
+  },
+  "invoiceIssues": {
+    "title": "Gestion des Problèmes de Factures - Admin",
+    "cardTitle": "Problèmes de Factures Signalés",
+    "cardDesc": "Consultez et gérez les problèmes de factures soumis par les donateurs.",
+    "loading": "Chargement des problèmes de factures...",
+    "noIssues": "Aucun problème signalé",
+    "noIssuesDesc": "La boîte de réception est vide pour le moment.",
+    "table": {
+      "invoiceNo": "Facture #",
+      "user": "Utilisateur",
+      "description": "Description",
+      "createdDate": "Date de création",
+      "status": "Statut"
+    },
+    "status": {
+      "open": "Ouvert",
+      "inProgress": "En cours",
+      "resolved": "Résolu"
+    },
+    "loadError": "Impossible de charger les problèmes de factures.",
+    "updateSuccess": "Statut mis à jour",
+    "updateSuccessDesc": "Le statut du problème a été changé à \"{{status}}\".",
+    "updateError": "Impossible de mettre à jour le statut."
+  },
+  "donationGoal": {
+    "title": "Objectif de Don - Administration",
+    "heading": "Paramètres de l'Objectif de Don",
+    "cardTitle": "Barre de Progression des Dons",
+    "cardDesc": "Modifiez ici les informations affichées dans la section de l'objectif de don sur la page d'accueil.",
+    "form": {
+      "title": "Titre",
+      "description": "Description",
+      "goalAmount": "Montant de l'objectif ($)",
+      "basePercentage": "Pourcentage de base (%)"
+    },
+    "saveButton": "Sauvegarder les changements",
+    "loadError": "Impossible de charger les paramètres de l'objectif de don.",
+    "saveError": "La sauvegarde a échoué. {{error}}",
+    "saveSuccess": "Les paramètres de l'objectif de don ont été mis à jour."
+  },
+  "analytics": {
+    "title": "Analytics - Administration",
+    "heading": "Analytics",
+    "loading": "Chargement des données...",
+    "cards": {
+      "totalRevenue": "Revenus totaux",
+      "totalRevenueDesc": "Total des dons réussis",
+      "totalUsers": "Total utilisateurs",
+      "totalUsersDesc": "Nombre total d'inscrits",
+      "avgDonation": "Don moyen",
+      "avgDonationDesc": "Basé sur {{count}} dons",
+      "totalDonations": "Total des dons",
+      "totalDonationsDesc": "Nombre de transactions"
+    },
+    "charts": {
+      "donationsPerDay": "Dons par jour",
+      "donationsTotal": "Total des dons",
+      "userGrowth": "Croissance des utilisateurs",
+      "cumulativeUsers": "Total utilisateurs cumulés"
+    },
+    "recentDonations": {
+      "title": "Dons récents",
+      "donor": "Donateur",
+      "amount": "Montant",
+      "date": "Date",
+      "anonymous": "Anonyme"
+    },
+    "loadError": "Erreur lors de la récupération des données"
+  },
+  "navbar": {
+    "heading": "Admin",
+    "analytics": "Analyses",
+    "users": "Utilisateurs",
+    "mailing": "Mailing",
+    "messages": "Messages",
+    "invoices": "Factures",
+    "donationGoal": "Objectif Don",
+    "organization": "Organisation",
+    "settings": "Paramètres",
+    "publicSite": "Site public",
+    "logout": "Déconnexion",
+    "openMenu": "Ouvrir le menu"
+  }
+}

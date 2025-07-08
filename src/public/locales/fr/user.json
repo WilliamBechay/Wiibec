@@ -1,0 +1,68 @@
+{
+  "dashboardPage": {
+    "helmetTitle": "Tableau de bord - WIIBEC",
+    "helmetDescription": "Votre tableau de bord personnel sur WIIBEC. Suivez vos dons, votre impact et gérez votre compte.",
+    "greeting": "Bonjour, {{name}} 👋",
+    "dearMember": "cher membre",
+    "thankYou": "Merci de faire une différence avec nous.",
+    "paymentSuccessTitle": "Paiement réussi !",
+    "paymentSuccessDescription": "Votre don a été traité avec succès. Merci pour votre soutien !",
+    "dataError": "Impossible de charger les données du tableau de bord.",
+    "tabs": {
+      "donations": "Mes Dons",
+      "invoices": "Mes Factures",
+      "impact": "Mon Impact",
+      "activity": "Activité Récente",
+      "transactions": "Transactions"
+    },
+    "recentActivities": {
+      "donation": "Vous avez fait une nouvelle donation. Merci !",
+      "welcome": "Bienvenue sur la plateforme WIIBEC !"
+    }
+  },
+  "profilePage": {
+    "helmetTitle": "Mon Profil - WIIBEC",
+    "helmetDescription": "Gérez les informations de votre profil WIIBEC.",
+    "title": "Mon Profil",
+    "subtitle": "Gardez vos informations personnelles et paramètres de sécurité à jour.",
+    "memberSince": "Membre depuis le {{date}}",
+    "personalInfo": "Informations Personnelles",
+    "edit": "Modifier",
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Adresse e-mail",
+    "phone": "Téléphone",
+    "security": "Sécurité",
+    "changePassword": "Mettez à jour votre mot de passe pour garder votre compte sécurisé.",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "changePasswordButton": "Changer le mot de passe",
+    "passwordLengthError": "Le mot de passe doit contenir au moins 6 caractères.",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "passwordUpdated": "Mot de passe mis à jour",
+    "passwordUpdatedSuccess": "Votre mot de passe a été changé avec succès.",
+    "loadingError": "Impossible de charger le profil. Veuillez réessayer plus tard.",
+    "passwordPlaceholder": "6+ caractères requis"
+  },
+  "dashboardStats": {
+    "totalDonated": "Total Donné",
+    "donationCount": "Nombre de Dons",
+    "memberSince": "Membre Depuis",
+    "supporterRank": "Rang de Supporter"
+  },
+  "donationPromptCard": {
+    "title": "Prêt à faire plus ?",
+    "description": "Chaque don nous aide à étendre notre portée et à éduquer plus de jeunes.",
+    "button": "Faire un autre don"
+  },
+  "impactTab": {
+    "title": "Votre Impact Cumulé",
+    "description": "Voici comment vos dons se traduisent en actions concrètes.",
+    "loading": "Calcul de votre impact...",
+    "noDonations": "Faites un don pour voir votre impact grandir !",
+    "totalContribution": "Votre contribution totale de",
+    "equivalentTo": "est équivalente à :"
+  }
+}

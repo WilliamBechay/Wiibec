@@ -1,0 +1,68 @@
+{
+  "dashboardPage": {
+    "helmetTitle": "Dashboard - WIIBEC",
+    "helmetDescription": "Your personal dashboard on WIIBEC. Track your donations, impact, and manage your account.",
+    "greeting": "Hello, {{name}} 👋",
+    "dearMember": "dear member",
+    "thankYou": "Thank you for making a difference with us.",
+    "paymentSuccessTitle": "Payment Successful!",
+    "paymentSuccessDescription": "Your donation has been processed successfully. Thank you for your support!",
+    "dataError": "Could not load dashboard data.",
+    "tabs": {
+      "donations": "My Donations",
+      "invoices": "My Invoices",
+      "impact": "My Impact",
+      "activity": "Recent Activity",
+      "transactions": "Transactions"
+    },
+    "recentActivities": {
+      "donation": "You made a new donation. Thank you!",
+      "welcome": "Welcome to the WIIBEC platform!"
+    }
+  },
+  "profilePage": {
+    "helmetTitle": "My Profile - WIIBEC",
+    "helmetDescription": "Manage your WIIBEC profile information.",
+    "title": "My Profile",
+    "subtitle": "Keep your personal information and security settings up to date.",
+    "memberSince": "Member since {{date}}",
+    "personalInfo": "Personal Information",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone",
+    "security": "Security",
+    "changePassword": "Update your password to keep your account secure.",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "changePasswordButton": "Change Password",
+    "passwordLengthError": "Password must be at least 6 characters.",
+    "passwordMismatch": "Passwords do not match.",
+    "passwordUpdated": "Password Updated",
+    "passwordUpdatedSuccess": "Your password has been successfully changed.",
+    "loadingError": "Could not load profile. Please try again later.",
+    "passwordPlaceholder": "6+ characters required"
+  },
+  "dashboardStats": {
+    "totalDonated": "Total Donated",
+    "donationCount": "Number of Donations",
+    "memberSince": "Member Since",
+    "supporterRank": "Supporter Rank"
+  },
+  "donationPromptCard": {
+    "title": "Ready to do more?",
+    "description": "Every donation helps us expand our reach and educate more young people.",
+    "button": "Make another donation"
+  },
+  "impactTab": {
+    "title": "Your Cumulative Impact",
+    "description": "Here's how your donations translate into concrete actions.",
+    "loading": "Calculating your impact...",
+    "noDonations": "Make a donation to see your impact grow!",
+    "totalContribution": "Your total contribution of",
+    "equivalentTo": "is equivalent to:"
+  }
+}
