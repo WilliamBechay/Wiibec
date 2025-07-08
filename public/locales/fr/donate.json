@@ -1,4 +1,3 @@
-
 {
   "helmetTitle": "Faire un don - WIIBEC",
   "helmetDescription": "Soutenez notre mission d'éducation financière pour la jeunesse. Chaque contribution fait la différence.",
@@ -16,4 +15,3 @@
   "loginError": "Veuillez vous connecter pour effectuer un don.",
   "stripeError": "Erreur Stripe"
 }
-  

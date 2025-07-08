@@ -1,4 +1,3 @@
-
 {
   "helmetTitle": "Make a Donation - WIIBEC",
   "helmetDescription": "Support our mission of youth financial education. Every contribution makes a difference.",
@@ -16,4 +15,3 @@
   "loginError": "Please log in to make a donation.",
   "stripeError": "Stripe Error"
 }
-  
