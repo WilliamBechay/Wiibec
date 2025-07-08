@@ -1,87 +1,60 @@
 {
-  "profilePage": {
-    "helmetTitle": "Mon Profil - WIIBEC",
-    "helmetDescription": "Gérez votre profil WIIBEC. Modifiez vos informations personnelles et votre mot de passe.",
-    "title": "Mon Profil",
-    "subtitle": "Gérez vos informations personnelles et de sécurité",
-    "memberSince": "Membre depuis le {{date}}",
-    "personalInfo": "Informations personnelles",
-    "edit": "Modifier",
-    "save": "Sauvegarder",
-    "cancel": "Annuler",
-    "firstName": "Prénom",
-    "lastName": "Nom",
-    "email": "Email",
-    "phone": "Téléphone",
-    "security": "Sécurité",
-    "changePassword": "Changez votre mot de passe",
-    "newPassword": "Nouveau mot de passe",
-    "confirmNewPassword": "Confirmer le nouveau mot de passe",
-    "passwordLengthError": "Le mot de passe doit contenir au moins 6 caractères.",
-    "passwordMismatch": "Les mots de passe ne correspondent pas.",
-    "passwordUpdated": "Mot de passe mis à jour",
-    "passwordUpdatedSuccess": "Votre mot de passe a été changé avec succès.",
-    "changePasswordButton": "Changer le mot de passe",
-    "loadingError": "Impossible de charger le profil. Veuillez réessayer."
-  },
   "dashboardPage": {
-    "helmetTitle": "Dashboard - WIIBEC",
-    "helmetDescription": "Votre espace personnel WIIBEC. Suivez vos donations, consultez votre profil et découvrez votre impact sur l'éducation financière des jeunes.",
-    "greeting": "Bonjour, {{name}} ! 👋",
-    "thankYou": "Merci de soutenir l'éducation financière des jeunes avec WIIBEC",
+    "helmetTitle": "Tableau de bord - WIIBEC",
+    "helmetDescription": "Votre tableau de bord personnel sur WIIBEC. Suivez vos dons, votre impact et gérez votre compte.",
+    "greeting": "Bonjour, {{name}} 👋",
     "dearMember": "cher membre",
+    "thankYou": "Merci de faire une différence avec nous.",
+    "paymentSuccessTitle": "Paiement réussi !",
+    "paymentSuccessDescription": "Votre don a été traité avec succès. Merci pour votre soutien !",
+    "dataError": "Impossible de charger les données du tableau de bord.",
     "tabs": {
-      "donations": "Mes Donations",
+      "donations": "Mes Dons",
       "invoices": "Mes Factures",
       "impact": "Mon Impact",
-      "activity": "Activité Récente"
+      "activity": "Activité Récente",
+      "transactions": "Transactions"
     },
-    "paymentSuccessTitle": "Paiement réussi!",
-    "paymentSuccessDescription": "Votre donation a été reçue. Merci pour votre soutien!",
-    "dataError": "Impossible de charger vos données.",
     "recentActivities": {
-      "donation": "Vous avez fait un don",
-      "welcome": "Bienvenue dans la communauté WIIBEC"
+      "donation": "Vous avez fait une nouvelle donation. Merci !",
+      "welcome": "Bienvenue sur la plateforme WIIBEC !"
     }
   },
+  "profilePage": {
+    "helmetTitle": "Mon Profil - WIIBEC",
+    "helmetDescription": "Gérez les informations de votre profil WIIBEC.",
+    "title": "Mon Profil",
+    "description": "Mettez à jour vos informations personnelles ici.",
+    "form": {
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Adresse e-mail",
+      "phone": "Téléphone",
+      "saveButton": "Sauvegarder les changements",
+      "savingButton": "Sauvegarde...",
+      "successToastTitle": "Profil mis à jour",
+      "successToastDescription": "Vos informations ont été sauvegardées avec succès.",
+      "errorToastTitle": "Erreur",
+      "errorToastDescription": "Impossible de mettre à jour le profil."
+    }
+  },
+  "dashboardStats": {
+    "totalDonated": "Total Donné",
+    "donationCount": "Nombre de Dons",
+    "memberSince": "Membre Depuis",
+    "supporterRank": "Rang de Supporter"
+  },
   "donationPromptCard": {
-    "title": "Soutenez notre cause",
-    "description": "Chaque don, petit ou grand, nous aide à poursuivre notre mission d'éducation financière pour les jeunes.",
-    "button": "Faire un don maintenant"
+    "title": "Prêt à faire plus ?",
+    "description": "Chaque don nous aide à étendre notre portée et à éduquer plus de jeunes.",
+    "button": "Faire un autre don"
   },
-  "donatePage": {
-    "helmetTitle": "Faire un don - WIIBEC",
-    "helmetDescription": "Soutenez notre mission d'éducation financière pour les jeunes. Chaque don compte.",
-    "title": "Soutenez notre mission",
-    "subtitle": "Votre générosité est le moteur de notre impact.",
-    "personalDonation": "Don Personnel",
-    "companyDonation": "Don d'Entreprise",
-    "companyName": "Nom de l'entreprise",
-    "companyNamePlaceholder": "Nom de votre entreprise",
-    "companyAddress": "Adresse de l'entreprise",
-    "companyAddressPlaceholder": "Adresse pour le reçu fiscal",
-    "otherAmount": "Autre",
-    "submitButton": "Faire un don de {{amount}}",
-    "processingButton": "Traitement...",
-    "loginError": "Veuillez vous connecter pour faire un don.",
-    "stripeError": "Erreur Stripe"
-  },
-  "paymentSuccessPage": {
-    "helmetTitle": "Statut du paiement - WIIBEC",
-    "helmetDescription": "Page de statut de votre don.",
-    "verifying": "Vérification de votre paiement...",
-    "verifyingDesc": "Veuillez patienter, nous confirmons votre don et générons votre reçu.",
-    "successTitle": "Merci pour votre soutien !",
-    "successDesc": "Votre don de {{amount}} a été traité avec succès.",
-    "receiptInfo": "Un reçu détaillé a été généré et est maintenant disponible dans votre tableau de bord.",
-    "goToDashboard": "Aller au tableau de bord",
-    "backToHome": "Retour à l'accueil",
-    "errorTitle": "Une erreur est survenue",
-    "errorDesc": "Nous n'avons pas pu vérifier votre paiement. Veuillez contacter le support si le problème persiste.",
-    "retryButton": "Réessayer de faire un don",
-    "missingSessionId": "ID de session manquant.",
-    "verificationError": "Erreur de vérification",
-    "paymentVerified": "Paiement vérifié!",
-    "paymentVerifiedDesc": "Votre don a été enregistré avec succès."
+  "impactTab": {
+    "title": "Votre Impact Cumulé",
+    "description": "Voici comment vos dons se traduisent en actions concrètes.",
+    "loading": "Calcul de votre impact...",
+    "noDonations": "Faites un don pour voir votre impact grandir !",
+    "totalContribution": "Votre contribution totale de",
+    "equivalentTo": "est équivalente à :"
   }
 }
