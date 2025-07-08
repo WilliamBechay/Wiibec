@@ -7,13 +7,11 @@ import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import DashboardStats from '@/components/dashboard/DashboardStats';
-import DonationsTab from '@/components/dashboard/DonationsTab';
-import InvoicesTab from '@/components/dashboard/InvoicesTab';
 import ImpactTab from '@/components/dashboard/ImpactTab';
-import ActivityTab from '@/components/dashboard/ActivityTab';
 import ReportInvoiceIssueDialog from '@/components/ReportInvoiceIssueDialog';
 import DonationPromptCard from '@/components/dashboard/DonationPromptCard';
 import { useTranslation } from 'react-i18next';
+import TransactionsTab from '@/components/dashboard/TransactionsTab';
 
 const DashboardPage = () => {
   const { user, profile } = useAuth();
@@ -100,11 +98,6 @@ const DashboardPage = () => {
     return <Navigate to="/login" replace />;
   }
 
-  const recentActivities = [
-    stats.lastDonation ? { type: 'donation', message: t('dashboardPage.recentActivities.donation'), date: stats.lastDonation.created_at } : null,
-    { type: 'welcome', message: t('dashboardPage.recentActivities.welcome'), date: user.created_at },
-  ].filter(Boolean).sort((a, b) => new Date(b.date) - new Date(a.date));
-
   return (
     <>
       <Helmet>
@@ -148,32 +141,23 @@ const DashboardPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Tabs defaultValue="donations" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
-              <TabsTrigger value="donations" className="py-2">{t('dashboardPage.tabs.donations')}</TabsTrigger>
-              <TabsTrigger value="invoices" className="py-2">{t('dashboardPage.tabs.invoices')}</TabsTrigger>
+          <Tabs defaultValue="transactions" className="space-y-6">
+            <TabsList className="grid w-full grid-cols-2 h-auto">
+              <TabsTrigger value="transactions" className="py-2">{t('dashboardPage.tabs.transactions')}</TabsTrigger>
               <TabsTrigger value="impact" className="py-2">{t('dashboardPage.tabs.impact')}</TabsTrigger>
-              <TabsTrigger value="activity" className="py-2">{t('dashboardPage.tabs.activity')}</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="donations">
-              <DonationsTab donations={donations} loading={loading} />
-            </TabsContent>
-            
-            <TabsContent value="invoices">
-              <InvoicesTab 
+            <TabsContent value="transactions">
+              <TransactionsTab 
+                donations={donations} 
                 invoices={invoices} 
                 loading={loading} 
                 onReportIssue={handleReportIssue} 
               />
             </TabsContent>
-
+            
             <TabsContent value="impact">
               <ImpactTab stats={stats} />
-            </TabsContent>
-
-            <TabsContent value="activity">
-              <ActivityTab activities={recentActivities} />
             </TabsContent>
           </Tabs>
         </motion.div>

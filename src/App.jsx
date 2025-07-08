@@ -69,7 +69,7 @@ import React from 'react';
                 }
               >
                 <Route index element={<Navigate to="analytics" replace />} />
-                <Route path="users" element={<AdminUsersPage />} />
+                <Route path="users" element={<PageGuard pageKey="users_admin"><AdminUsersPage /></PageGuard>} />
                 <Route path="mailing" element={<AdminMailingPage />} />
                 <Route path="messages" element={<PageGuard pageKey="messages_admin"><AdminMessagesPage /></PageGuard>} />
                 <Route path="analytics" element={<AdminAnalyticsPage />} />

@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { Shield, Home, LogOut, Mail, Users, Settings, FileText, BarChart, FileWarning, Building, Goal, Menu, X } from 'lucide-react';
+import { Shield, Home, LogOut, Mail, Users, Settings, FileText, BarChart, MessageSquare, Building, Goal, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminNavbar = () => {
@@ -28,10 +28,10 @@ const AdminNavbar = () => {
 
   const navItems = [
     { to: "/admin/analytics", icon: BarChart, label: "Analyses" },
+    { to: "/admin/users", icon: Users, label: "Utilisateurs" },
     { to: "/admin/mailing", icon: Mail, label: "Mailing" },
-    { to: "/admin/messages", icon: Users, label: "Messages" },
+    { to: "/admin/messages", icon: MessageSquare, label: "Messages" },
     { to: "/admin/invoices", icon: FileText, label: "Factures" },
-    { to: "/admin/invoice-issues", icon: FileWarning, label: "Problèmes Factures" },
     { to: "/admin/donation-goal", icon: Goal, label: "Objectif Don" },
     { to: "/admin/organization", icon: Building, label: "Organisation" },
     { to: "/admin/settings", icon: Settings, label: "Paramètres" },

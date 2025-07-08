@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
     import { Helmet } from 'react-helmet';
     import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -10,13 +11,14 @@ import React, { useState } from 'react';
     import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
     import { useToast } from '@/components/ui/use-toast';
     import { useTranslation } from 'react-i18next';
+    import GoogleIcon from '@/components/icons/GoogleIcon';
 
     const LoginPage = () => {
       const [formData, setFormData] = useState({ email: '', password: '' });
       const [showPassword, setShowPassword] = useState(false);
       const [loading, setLoading] = useState(false);
       
-      const { login } = useAuth();
+      const { login, signInWithGoogle } = useAuth();
       const navigate = useNavigate();
       const location = useLocation();
       const { toast } = useToast();
@@ -39,6 +41,12 @@ import React, { useState } from 'react';
           toast({ title: t('loginPage.errorToastTitle'), description: error, variant: "destructive" });
         }
         setLoading(false);
+      };
+
+      const handleGoogleSignIn = async () => {
+        setLoading(true);
+        await signInWithGoogle();
+        // setLoading(false) is not called here because the page will redirect
       };
 
       return (
@@ -85,6 +93,23 @@ import React, { useState } from 'react';
                   {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> {t('loginPage.loggingInButton')}</> : t('loginPage.loginButton')}
                 </Button>
               </form>
+
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">
+                    {t('loginPage.dividerText')}
+                  </span>
+                </div>
+              </div>
+
+              <Button variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={loading}>
+                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-5 w-5" />}
+                {t('loginPage.googleButton')}
+              </Button>
+
               <div className="mt-6 text-center text-sm">
                 <p className="text-muted-foreground">
                   {t('loginPage.noAccount')}{' '}

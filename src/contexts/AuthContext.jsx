@@ -115,12 +115,29 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
         return { success: true, data };
       };
 
+      const signInWithGoogle = async () => {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin,
+          },
+        });
+        if (error) {
+          toast({
+            title: "Erreur de connexion Google",
+            description: error.message,
+            variant: "destructive",
+          });
+        }
+      };
+
       const logout = async () => {
         const { error } = await supabase.auth.signOut();
         
         if (error) {
           console.error('Error signing out:', error.message);
-          if (error.message !== 'User from sub claim in JWT does not exist') {
+          // Ignore session not found errors, as the user is effectively logged out.
+          if (error.message !== 'User from sub claim in JWT does not exist' && error.message !== 'Session from session_id claim in JWT does not exist') {
             toast({
               title: "Erreur de déconnexion",
               description: error.message,
@@ -129,9 +146,7 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
           }
         }
         
-        // Force clear local storage tokens for a clean slate
-        await supabase.auth.setSession({ access_token: null, refresh_token: null });
-        
+        // Force clear local storage tokens and state for a clean slate, regardless of error
         setUser(null);
         setProfile(null);
       };
@@ -181,6 +196,7 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
         profile,
         login,
         register,
+        signInWithGoogle,
         logout,
         resetPasswordForEmail,
         updatePassword,

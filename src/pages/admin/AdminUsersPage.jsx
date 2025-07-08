@@ -33,23 +33,19 @@ const AdminUsersPage = () => {
       const to = from + pagination.pageSize - 1;
 
       let query = supabase
-        .from('profiles')
-        .select(`id, first_name, last_name, is_admin, users ( email, created_at )`, { count: 'exact' });
+        .from('users_with_profiles')
+        .select(`*`, { count: 'exact' });
 
       if (searchTerm) {
-        query = query.or(`first_name.ilike.%${searchTerm}%,last_name.ilike.%${searchTerm}%,users(email).ilike.%${searchTerm}%`);
+        query = query.or(`first_name.ilike.%${searchTerm}%,last_name.ilike.%${searchTerm}%,email.ilike.%${searchTerm}%`);
       }
       
       const { data, error, count } = await query
-        .order('created_at', { foreignTable: 'users', ascending: false })
+        .order('created_at', { ascending: false })
         .range(from, to);
 
       if (error) {
-        if (error.message.includes("could not find a relationship")) {
-           toast({ title: t('users.toast.configError'), description: t('users.toast.configErrorDesc'), variant: "destructive" });
-        } else {
-           throw error;
-        }
+        throw error;
       }
 
       setUsers(data || []);
@@ -208,9 +204,9 @@ const AdminUsersPage = () => {
                     users.map((user) => (
                       <TableRow key={user.id}>
                         <TableCell className="font-medium">{user.first_name} {user.last_name}</TableCell>
-                        <TableCell className="hidden md:table-cell">{user.users?.email}</TableCell>
+                        <TableCell className="hidden md:table-cell">{user.email}</TableCell>
                         <TableCell>{user.is_admin ? t('users.roleAdmin') : t('users.roleUser')}</TableCell>
-                        <TableCell className="hidden sm:table-cell">{formatDate(user.users?.created_at)}</TableCell>
+                        <TableCell className="hidden sm:table-cell">{formatDate(user.created_at)}</TableCell>
                         <TableCell>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -290,7 +286,7 @@ const AdminUsersPage = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>{t('users.deleteDialog.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              {t('users.deleteDialog.description', { name: `${selectedUser?.first_name} ${selectedUser?.last_name}`, email: selectedUser?.users?.email })}
+              {t('users.deleteDialog.description', { name: `${selectedUser?.first_name} ${selectedUser?.last_name}`, email: selectedUser?.email })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

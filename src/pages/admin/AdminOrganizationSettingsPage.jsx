@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -11,36 +11,36 @@ import { Loader2, Save } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const AdminOrganizationSettingsPage = () => {
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
   const { t } = useTranslation('admin');
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('organization_settings')
-        .select('*')
-        .limit(1)
-        .single();
+  const fetchSettings = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('organization_settings')
+      .select('*')
+      .limit(1)
+      .maybeSingle();
 
-      if (error) {
-        toast({
-          title: t('common:errors.error'),
-          description: t('organization.loadError'),
-          variant: 'destructive',
-        });
-        console.error(error);
-      } else {
-        setSettings(data || {});
-      }
-      setLoading(false);
-    };
-
-    fetchSettings();
+    if (error) {
+      toast({
+        title: t('common:errors.error'),
+        description: t('organization.loadError'),
+        variant: 'destructive',
+      });
+      console.error(error);
+    } else {
+      setSettings(data);
+    }
+    setLoading(false);
   }, [toast, t]);
+
+  useEffect(() => {
+    fetchSettings();
+  }, [fetchSettings]);
 
   const handleChange = (e) => {
     setSettings({ ...settings, [e.target.name]: e.target.value });
@@ -50,13 +50,26 @@ const AdminOrganizationSettingsPage = () => {
     e.preventDefault();
     setSaving(true);
     
-    const { id, ...updateData } = settings;
+    const { id, ...updateData } = settings || {};
     updateData.updated_at = new Date().toISOString();
 
-    const { error } = await supabase
-      .from('organization_settings')
-      .update(updateData)
-      .eq('id', id);
+    let response;
+    if (id) {
+      response = await supabase
+        .from('organization_settings')
+        .update(updateData)
+        .eq('id', id)
+        .select()
+        .single();
+    } else {
+      response = await supabase
+        .from('organization_settings')
+        .insert(updateData)
+        .select()
+        .single();
+    }
+
+    const { data, error } = response;
 
     if (error) {
       toast({
@@ -65,6 +78,7 @@ const AdminOrganizationSettingsPage = () => {
         variant: 'destructive',
       });
     } else {
+      setSettings(data);
       toast({
         title: t('auth:resetPasswordPage.successToastTitle'),
         description: t('organization.saveSuccess'),
@@ -107,39 +121,39 @@ const AdminOrganizationSettingsPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="org_name">{t('organization.form.orgName')}</Label>
-                  <Input id="org_name" name="org_name" value={settings.org_name || ''} onChange={handleChange} />
+                  <Input id="org_name" name="org_name" value={settings?.org_name || ''} onChange={handleChange} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="registration_number">{t('organization.form.regNumber')}</Label>
-                  <Input id="registration_number" name="registration_number" value={settings.registration_number || ''} onChange={handleChange} />
+                  <Input id="registration_number" name="registration_number" value={settings?.registration_number || ''} onChange={handleChange} />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="address">{t('organization.form.address')}</Label>
-                <Input id="address" name="address" value={settings.address || ''} onChange={handleChange} />
+                <Input id="address" name="address" value={settings?.address || ''} onChange={handleChange} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="city">{t('organization.form.city')}</Label>
-                  <Input id="city" name="city" value={settings.city || ''} onChange={handleChange} />
+                  <Input id="city" name="city" value={settings?.city || ''} onChange={handleChange} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="province">{t('organization.form.province')}</Label>
-                  <Input id="province" name="province" value={settings.province || ''} onChange={handleChange} />
+                  <Input id="province" name="province" value={settings?.province || ''} onChange={handleChange} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="postal_code">{t('organization.form.postalCode')}</Label>
-                  <Input id="postal_code" name="postal_code" value={settings.postal_code || ''} onChange={handleChange} />
+                  <Input id="postal_code" name="postal_code" value={settings?.postal_code || ''} onChange={handleChange} />
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="email">{t('organization.form.contactEmail')}</Label>
-                  <Input id="email" name="email" type="email" value={settings.email || ''} onChange={handleChange} />
+                  <Input id="email" name="email" type="email" value={settings?.email || ''} onChange={handleChange} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="website">{t('organization.form.website')}</Label>
-                  <Input id="website" name="website" type="url" value={settings.website || ''} onChange={handleChange} />
+                  <Input id="website" name="website" type="url" value={settings?.website || ''} onChange={handleChange} />
                 </div>
               </div>
               <div className="flex justify-end">
